@@ -20,7 +20,9 @@ CREATE TABLE Delivery_Center
 CREATE TABLE Users
 (
   id int unsigned PRIMARY KEY AUTO_INCREMENT,
-  name varchar(150) NOT NULL,
+  first_name varchar(150) NOT NULL,
+  last_name varchar(150) NOT NULL,
+  second_name varchar(150),
   number_phone varchar(25) NOT NULL,
   address varchar(150),
   id_dc int unsigned,
@@ -48,7 +50,7 @@ CREATE TABLE Role_User
 CREATE TABLE Packs
 (
   id serial PRIMARY KEY,
-  type_d varchar(20) NOT NULL, --ENUM('РЎСЂРѕС‡РЅР°СЏ', 'РћР±С‹С‡РЅР°СЏ')
+  type_delivery ENUM('Срочная', 'Обычная') NOT NULL, 
   weight int,
   user_from int unsigned,
   user_to int unsigned,
@@ -69,7 +71,7 @@ CREATE TABLE States
 CREATE TABLE Actions
 (
   id serial PRIMARY KEY,
-  id_pack int unsigned,
+  id_pack bigint unsigned,
   id_state int unsigned,
   `date` date,
   FOREIGN KEY (id_pack) REFERENCES Packs (id),
