@@ -1,19 +1,16 @@
 package Data_Base;
+import config.Config;
 import java.sql.*;
-public abstract class  Server {
+public class  Server {
     private Connection connection;
-    private Statement statement;
     private String login;
     private String password;
     private String url;
 
-    private Server (String url, String login, String password) {
+    private Server () {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            this.url = url;
-            this.login = login;
-            this.password = password;
-            connection = DriverManager.getConnection(this.url, this.login, this.password);
+            Class.forName(Config.NAME_BIBLE);
+            connection = DriverManager.getConnection(Config.URL_DB, Config.LOGIN_DB, Config.PASSWORD_DB);
             System.out.println("Data Base connected");
         } catch (SQLException e){
             System.out.println("Data Base not connected \n Error!");
@@ -25,7 +22,13 @@ public abstract class  Server {
             System.exit(0);
         }
     }
+    private static class SignServer{
+        public static final Server SIGNSERVER = new Server();
+    }
 
+    public static Server getInstance(){
+        return SignServer.SIGNSERVER;
+    }
     public ResultSet request(String sql){
         try {
              return connection.createStatement().executeQuery(sql);
@@ -35,4 +38,16 @@ public abstract class  Server {
         }
         return null;
     }
+
+//    public ResultSet request(String sql, Object[] parameters){
+//        try {
+//
+//            PreparedStatement statement = connection.prepareStatement(sql);
+//            statement.setArray();
+//        } catch (SQLException e){
+//            System.out.println("Request not correct or not connected DB");
+//            System.out.println(e);
+//        }
+//        return null;
+//    }
 }
