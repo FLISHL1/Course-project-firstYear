@@ -1,5 +1,5 @@
 package Data_Base;
-import config.Config;
+import Config.Config;
 import java.sql.*;
 public class  Server {
     private Connection connection;

@@ -1,4 +1,4 @@
-package config;
+package Config;
 
 public class Config {
     public static final String URL_DB = "jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_2228_kursach";

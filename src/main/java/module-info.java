@@ -1,4 +1,4 @@
-module GUI
+module GUI.App
 {
     requires javafx.graphics;
     requires java.sql;
@@ -8,5 +8,7 @@ module GUI
 
     opens GUI to javafx.fxml;
     exports GUI;
+    exports Controllers;
+    opens Controllers to javafx.fxml;
 
 }
