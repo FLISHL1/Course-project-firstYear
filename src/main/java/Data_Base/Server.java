@@ -1,6 +1,8 @@
 package Data_Base;
 import Config.Config;
 import java.sql.*;
+import java.util.HashMap;
+
 public class  Server {
     private Connection connection;
     private String login;
@@ -29,7 +31,8 @@ public class  Server {
     public static Server getInstance(){
         return SignServer.SIGNSERVER;
     }
-    public ResultSet request(String sql){
+
+/*    public ResultSet request(String sql){
         try {
              return connection.createStatement().executeQuery(sql);
         } catch (SQLException e){
@@ -37,17 +40,19 @@ public class  Server {
             System.out.println(e);
         }
         return null;
-    }
+    }*/
 
-//    public ResultSet request(String sql, Object[] parameters){
-//        try {
-//
-//            PreparedStatement statement = connection.prepareStatement(sql);
-//            statement.setArray();
-//        } catch (SQLException e){
-//            System.out.println("Request not correct or not connected DB");
-//            System.out.println(e);
-//        }
-//        return null;
-//    }
+    public PreparedStatement cRequest(String sql){
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            return statement;
+        } catch (SQLException e){
+            System.out.println("Request not correct or not connected DB");
+            System.out.println(e);
+        }
+        return null;
+    }
+    public ResultSet request(PreparedStatement statement) throws SQLException {
+        return statement.executeQuery();
+    }
 }
