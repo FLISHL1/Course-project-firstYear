@@ -36,4 +36,7 @@ public class Tables{
         return tables.remove(name);
     }
 
+    public static void clear(){
+        tables.clear();
+    }
 }

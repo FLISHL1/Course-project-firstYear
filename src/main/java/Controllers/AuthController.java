@@ -7,6 +7,7 @@ import Data_Base.Tables.RowTabel;
 import Data_Base.Tables.Table;
 import Data_Base.Tables.Tables;
 import GUI.Alert.AlertShow;
+import GUI.MainP;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -37,6 +38,8 @@ public class AuthController {
     private void buttonClick(ActionEvent event) throws SQLException {
         switch (((Button) event.getSource()).getId()){
             case "butLogin":{
+                insLogin.setText("kirill.kk");
+                insPassword.setText("15022005");
                 try{
                     Table table;
 
@@ -56,8 +59,10 @@ public class AuthController {
                     if (row == null){
                         AlertShow.showAlert("info", "User not found","Currently user not found\nPlease check login or password", (Stage) butLogin.getScene().getWindow());
                     } else if (PasswordHashing.checkPass(insPassword.getText(), (String) row.getCell(table.getColumn("password")).getValue())) {
+                        new MainP(server);
                         Tables.add("User", table);
-
+                        Stage stage = (Stage) butLogin.getScene().getWindow();
+                        stage.close();
                     } else {
                         AlertShow.showAlert("info", "User not found","Currently user not found\nPlease check login or password", (Stage) butLogin.getScene().getWindow());
 
@@ -69,8 +74,7 @@ public class AuthController {
 
 
 
-                Stage stage = (Stage) butLogin.getScene().getWindow();
-//              stage.close();
+
                 break;
             }
             case "butCancel":{

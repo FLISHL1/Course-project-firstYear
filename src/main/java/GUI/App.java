@@ -1,7 +1,7 @@
 package GUI;
 
 import Data_Base.Server;
-import GUI.Page.AuthP;
+import GUI.Alert.AlertShow;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 public class App extends Application {
     public static void main(String[] args){
         Server server = Server.getInstance();
-        AuthP a = new AuthP(server);
+        new AuthP(server);
     }
 
     @Override

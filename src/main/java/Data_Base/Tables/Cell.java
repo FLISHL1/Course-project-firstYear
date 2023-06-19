@@ -14,6 +14,6 @@ public class Cell<T> {
     }
 
     public void setValue(T value) {
-        this.value = value;
+        this.value = (T) value;
     }
 }

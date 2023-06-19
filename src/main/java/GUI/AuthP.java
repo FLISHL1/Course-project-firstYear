@@ -1,8 +1,10 @@
-package GUI.Page;
+package GUI;
 
+import Controllers.AuthController;
 import Data_Base.Server;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;

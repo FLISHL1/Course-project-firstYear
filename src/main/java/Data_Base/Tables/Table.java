@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 public class Table extends ArrayList<RowTabel> {
     private ArrayList<String> nameCol;
+
     public Table(ResultSet result){
         ArrayList<String> s = new ArrayList<>();
         nameCol = new ArrayList<String>() {

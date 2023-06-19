@@ -15,8 +15,5 @@ module GUI.App
     opens Data_Base to javafx.fxml;
     exports GUI.Alert;
     opens GUI.Alert to javafx.fxml;
-    exports GUI.Page;
-    opens GUI.Page to javafx.fxml;
-
 }
 
