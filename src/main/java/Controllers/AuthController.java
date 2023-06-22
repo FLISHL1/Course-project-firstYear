@@ -1,7 +1,8 @@
 package Controllers;
 
 import Crypto.PasswordHashing;
-import Data_Base.Querys;
+import Data_Base.Query.BuilderQuery;
+import Data_Base.Query.Query;
 import Data_Base.Server;
 import Data_Base.Tables.RowTabel;
 import Data_Base.Tables.Table;
@@ -40,39 +41,36 @@ public class AuthController {
             case "butLogin":{
                 insLogin.setText("kirill.kk");
                 insPassword.setText("15022005");
-                try{
-                    Table table;
+                Table table;
 
 //                          Проверка на наличие запрашиваемой таблицы в памяти
-                    if (!Tables.contain("User")) {
-                        PreparedStatement s = server.cRequest(Querys.GET_USER);
-                        s.setString(1, insLogin.getText());
-                        ResultSet result = server.request(s);
-                        table = new Table(result);
-                    } else {
-                        table = Tables.get("User");
-                    }
-
-                    RowTabel row = table.getRow("login", insLogin.getText());
-
-//                          Авторизация
-                    if (row == null){
-                        AlertShow.showAlert("info", "User not found","Currently user not found\nPlease check login or password", (Stage) butLogin.getScene().getWindow());
-                    } else if (PasswordHashing.checkPass(insPassword.getText(), (String) row.getCell(table.getColumn("password")).getValue())) {
-                        new MainP(server);
-                        Tables.add("User", table);
-                        Stage stage = (Stage) butLogin.getScene().getWindow();
-                        stage.close();
-                    } else {
-                        AlertShow.showAlert("info", "User not found","Currently user not found\nPlease check login or password", (Stage) butLogin.getScene().getWindow());
-
-                    }
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                if (!Tables.contain("User")) {
+//                        PreparedStatement s = server.cRequest(Query.GET_USER);
+//                        s.setString(1, insLogin.getText());
+//                        ResultSet result = server.request(s);
+                    BuilderQuery query = new BuilderQuery("getUser", Query.GET_USER);
+                    query.setWhere(String.format("login = \"%s\"", insLogin.getText()));
+                    ResultSet result = server.request(query.toString());
+                    table = new Table(result);
+                    System.out.println(table);
+                } else {
+                    table = Tables.get("User");
                 }
 
+                RowTabel row = table.getRow("login", insLogin.getText());
 
+//                          Авторизация
+                if (row == null){
+                    AlertShow.showAlert("info", "User not found","Currently user not found\nPlease check login or password", (Stage) butLogin.getScene().getWindow());
+                } else if (PasswordHashing.checkPass(insPassword.getText(), (String) row.getCell(table.getColumn("password")).getValue())) {
+                    new MainP(server);
+                    Tables.add("User", table);
+                    Stage stage = (Stage) butLogin.getScene().getWindow();
+                    stage.close();
+                } else {
+                    AlertShow.showAlert("info", "User not found","Currently user not found\nPlease check login or password", (Stage) butLogin.getScene().getWindow());
 
+                }
 
 
                 break;

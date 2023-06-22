@@ -6,12 +6,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class Table extends ArrayList<RowTabel> {
     private ArrayList<String> nameCol;
 
     public Table(ResultSet result){
-        ArrayList<String> s = new ArrayList<>();
         nameCol = new ArrayList<String>() {
             @Override
             public String toString() {
@@ -24,19 +24,20 @@ public class Table extends ArrayList<RowTabel> {
         };
 
         try {
-
             add(result);
-            initNameC(result.getMetaData());
+            initName(result.getMetaData());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void initNameC(ResultSetMetaData met) throws SQLException {
-        for (int i = 1; i <= met.getColumnCount(); i++) nameCol.add(met.getColumnName(i));
+    private void initName(ResultSetMetaData met) throws SQLException {
+        for (int i = 1; i <= met.getColumnCount(); i++) {
+            nameCol.add(met.getColumnName(i));
+        }
     }
 
-    public void add(ResultSet result) throws SQLException {
+    private void add(ResultSet result) throws SQLException {
         while (result.next()){
             add(new RowTabel(result));
         }

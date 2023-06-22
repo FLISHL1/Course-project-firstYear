@@ -32,7 +32,7 @@ public class  Server {
         return SignServer.SIGNSERVER;
     }
 
-/*    public ResultSet request(String sql){
+    public ResultSet request(String sql){
         try {
              return connection.createStatement().executeQuery(sql);
         } catch (SQLException e){
@@ -40,7 +40,7 @@ public class  Server {
             System.out.println(e);
         }
         return null;
-    }*/
+    }
 
     public PreparedStatement cRequest(String sql){
         try {

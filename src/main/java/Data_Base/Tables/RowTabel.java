@@ -8,10 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RowTabel extends ArrayList<Cell> {
-    private HashMap<Integer, String> updateVariable;
 
     public RowTabel(ResultSet result){
-        updateVariable = new HashMap<>();
         try {
             ResultSetMetaData metaData = result.getMetaData();
             for (int i = 1; i <= metaData.getColumnCount(); i++){
@@ -34,7 +32,6 @@ public class RowTabel extends ArrayList<Cell> {
 
     public void setCell(int indexC, Object value){
         super.get(indexC).setValue(value);
-        updateVariable.put(indexC, "$ = \" \" ");
     }
     @Override
     public String toString() {

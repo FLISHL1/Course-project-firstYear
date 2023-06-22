@@ -1,10 +1,7 @@
 package Data_Base.Tables;
 
-import javafx.application.Platform;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Set;
 
