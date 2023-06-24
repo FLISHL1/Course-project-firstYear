@@ -36,4 +36,4 @@ build/
 
 ### Mac OS ###
 .DS_Store
-src/main/java/Config/Config.java
+src/main/java/config/Config.java

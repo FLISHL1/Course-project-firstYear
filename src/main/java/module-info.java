@@ -1,4 +1,4 @@
-module GUI.App
+module Main.Main
 {
     requires javafx.graphics;
     requires java.sql;
@@ -6,16 +6,17 @@ module GUI.App
     requires javafx.fxml;
     requires javafx.controls;
     requires jbcrypt;
+    requires javafx.swing;
 
-    opens GUI to javafx.fxml;
-    exports GUI;
-    exports Controllers;
-    opens Controllers to javafx.fxml;
-    exports Data_Base;
-    opens Data_Base to javafx.fxml;
-    exports GUI.Alert;
-    opens GUI.Alert to javafx.fxml;
-    exports Data_Base.Query;
-    opens Data_Base.Query to javafx.fxml;
+    opens gUI to javafx.fxml;
+    exports gUI;
+    exports controllers;
+    opens controllers to javafx.fxml;
+    exports data_Base;
+    opens data_Base to javafx.fxml;
+    exports gUI.alert;
+    opens gUI.alert to javafx.fxml;
+    exports data_Base.query;
+    opens data_Base.query to javafx.fxml;
 }
 
