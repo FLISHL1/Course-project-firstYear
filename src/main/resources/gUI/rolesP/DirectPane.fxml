@@ -414,7 +414,7 @@
                                     <Font name="Lato Semibold" size="18.0" />
                                  </font>
                               </Label>
-                              <TextField prefHeight="35.0" prefWidth="169.0" promptText="Searchable Login">
+                              <TextField fx:id="searchLogin" prefHeight="35.0" prefWidth="169.0" promptText="Searchable Login">
                                  <HBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </HBox.margin>
@@ -422,7 +422,7 @@
                                     <Font name="Lato Semibold" size="18.0" />
                                  </font>
                               </TextField>
-                              <Button mnemonicParsing="false" text="Change">
+                              <Button fx:id="btnChangeUser" mnemonicParsing="false" onAction="#saveChange" text="Change">
                                  <HBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </HBox.margin>
@@ -430,7 +430,7 @@
                                     <Font name="Lato Semibold" size="18.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" text="Delete">
+                              <Button fx:id="btnDelUser" mnemonicParsing="false" onAction="#delUser" text="Delete">
                                  <font>
                                     <Font name="Lato Semibold" size="18.0" />
                                  </font>
@@ -440,9 +440,9 @@
                               </Button>
                            </children>
                         </HBox>
-                        <ScrollPane hbarPolicy="NEVER" layoutY="54.0" prefHeight="318.0" prefWidth="600.0">
+                        <ScrollPane layoutY="54.0" prefHeight="318.0" prefWidth="600.0">
                            <content>
-                              <VBox prefHeight="317.0" prefWidth="585.0" />
+                              <VBox fx:id="listUsers" prefHeight="317.0" prefWidth="585.0" />
                            </content>
                         </ScrollPane>
                      </children></AnchorPane>

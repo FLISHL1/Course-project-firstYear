@@ -13,6 +13,7 @@ public class Query {
     public static final String INSERT = "INSERT INTO %s \n" +
             "SET %s;";
 
+    public static final String DEL_ROW = "DELETE FROM %s %s;";
     public static final String INSERT_ROLE = "INSERT INTO Role_User\n" +
             "(id_user, id_role)\n" +
             "SELECT Users.id, %s FROM Users\n" +

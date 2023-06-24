@@ -9,6 +9,7 @@ import data_Base.tables.Cell;
 import data_Base.tables.RowTabel;
 import data_Base.tables.Table;
 import data_Base.tables.Tables;
+import gUI.ChangeUserP;
 import gUI.alert.AlertShow;
 import gUI.AuthP;
 import javafx.collections.FXCollections;
@@ -17,11 +18,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -74,8 +74,13 @@ public class MainController implements Initializable {
     private TextField insRegNewPassword;
 //    TabUsers
     @FXML
-    private HBox listUsers;
+    private VBox listUsers;
+    @FXML
+    private TextField searchLogin;
+//    @FXML
+//    private TableView userTable;
     private Server server;
+
     private boolean fl;
     public MainController(Server server) {
         this.server = server;
@@ -106,28 +111,37 @@ public class MainController implements Initializable {
         }
         newChoidceDel.setItems(list);
         newChoidceDel.setVisible(false);
-        table = Tables.get("Users");
-/*        FXMLLoader loader = new FXMLLoader(getClass().getResource("template_listUsers.fxml"));
-
-        for (RowTabel row: table){
-
-            try {
-                HBox box = loader.load();
-
-                for(Node label: box.getChildren()){
-                    System.out.println(1);
-                    switch (label.getId()){
-                        case "login" -> ((Label) label).setText((String) (row.getCell(table.getColumn("login")).getValue()));
-                        case "fio" -> ((Label) label).setText((String) (row.getCell(table.getColumn("login")).getValue()));
-                        case "role" -> ((Label) label).setText((String) (row.getCell(table.getColumn("login")).getValue()));
-                    }
-                }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }*/
+//        ObservableList<RowTabel> list1 = FXCollections.observableArrayList();
+//        list1.addAll(table);
+//        userTable.setItems(list1);
+//        TableColumn<RowTabel, Cell> loginColumn = new TableColumn<>("Логин");
+//        loginColumn.setCellValueFactory(new PropertyValueFactory<RowTabel, Cell>(""));
+//        userTable.getColumns().add(loginColumn);
+        fillUsers();
     }
-
+    private void fillUsers(){
+        listUsers.getChildren().clear();
+        Table table = Tables.get("Users");
+        HBox boxColumn = new HBox(new Label("Логин"), new Label("ФИО"), new Label("Роль"));
+        boxColumn.setSpacing(150);
+        boxColumn.setStyle("-fx-font-size: 18px; -fx-font-family: \"Lato Semibold\"; -fx-border-color: gray;");
+        boxColumn.setPadding(new Insets(10));
+        listUsers.getChildren().add(boxColumn);
+        for (RowTabel row: table){
+            if (((String) (row.getCell(table.getColumn("login")).getValue())).equals((String) Tables.get("User").get(0).get(Tables.get("User").getColumn("login")).getValue())){
+                continue;
+            }
+            HBox box = new HBox();
+            Label login = new Label((String) (row.getCell(table.getColumn("login")).getValue()));
+            Label fio = new Label((row.getCell(table.getColumn("last_name")).getValue()) + " " + (row.getCell(table.getColumn("first_name")).getValue()) + " " + (row.getCell(table.getColumn("second_name")).getValue()));
+            Label role = new Label((String) (row.getCell(table.getColumn("name")).getValue()));
+            box.setSpacing(15);
+            box.setStyle("-fx-font-size: 18px; -fx-font-family: \"Lato Semibold\"; -fx-border-color: gray;");
+            box.setPadding(new Insets(10));
+            box.getChildren().addAll(login, fio, role);
+            listUsers.getChildren().add(box);
+        }
+    }
     @FXML
     private void saveChange(ActionEvent event){
         Node o = (Node) event.getSource();
@@ -135,7 +149,29 @@ public class MainController implements Initializable {
         switch (o.getId()){
             case "tabUser" -> userSaveChange((AnchorPane) o);
             case "tabRegUser" -> regUser((AnchorPane) o);
+            case "tabUsers" -> changeUser((AnchorPane) o);
         }
+    }
+
+    private void changeUser(AnchorPane o) {
+        RowTabel row = Tables.get("Users").getRow("login", searchLogin.getText());
+        System.out.println(Tables.get("Users").getRow("login", "Ice_One"));
+        System.out.println(searchLogin.getText());
+        if (row == null){
+            AlertShow.showAlert("info", "Not Found", "Currently user not found\n Please check valid login!", (Stage) searchLogin.getScene().getWindow());
+            return;
+        }
+        new ChangeUserP(o, row);
+    }
+
+    @FXML
+    private void delUser(){
+        Tables.get("Users").delRow("login",searchLogin.getText());
+        fillUsers();
+        BuilderQuery query = new BuilderQuery("delUser"+searchLogin.getText(), Query.DEL_ROW, "Users");
+        query.setWhere(String.format("login = \"%s\"", searchLogin.getText()));
+        System.out.println(query);
+        AcumQuery.add(query);
     }
 
     private void regUser(AnchorPane source){
@@ -277,6 +313,7 @@ public class MainController implements Initializable {
         }
         if (query.getLengthArg() != 0)
             AcumQuery.add(query);
+        resetChange();
     }
 
     private boolean checkChange(Cell oldValue, String newValue){
@@ -320,27 +357,20 @@ public class MainController implements Initializable {
 
     @FXML
     private void resetChange(){
-        boolean fl = false;
-        for (Thread t: Thread.getAllStackTraces().keySet())
-            if (t.getName().equals("Reset")) fl = true;
-        if (!fl) {
-            Thread t = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    Table table = Tables.get("User");
-                    RowTabel row = table.get(0);
-                    insFirstName.setText((String) row.get(table.getColumn("first_name")).getValue());
-                    insSecondName.setText((String) row.get(table.getColumn("second_name")).getValue());
-                    insLastName.setText((String) row.get(table.getColumn("last_name")).getValue());
-                    insNumberPhone.setText((String) row.get(table.getColumn("number_phone")).getValue());
-                    insAddress.setText((String) row.get(table.getColumn("address")).getValue());
-                    insLogin.setText((String) row.get(table.getColumn("login")).getValue());
-                    nameUser.setText(insLastName.getText() + " " + insFirstName.getText() + " " + insSecondName.getText());
-                    roleUser.setText((String) row.get(table.getColumn("name")).getValue());
-                }
-            }, "Reset");
-            t.start();
-        }
+
+
+
+        Table table = Tables.get("User");
+        RowTabel row = table.get(0);
+        insFirstName.setText((String) row.get(table.getColumn("first_name")).getValue());
+        insSecondName.setText((String) row.get(table.getColumn("second_name")).getValue());
+        insLastName.setText((String) row.get(table.getColumn("last_name")).getValue());
+        insNumberPhone.setText((String) row.get(table.getColumn("number_phone")).getValue());
+        insAddress.setText((String) row.get(table.getColumn("address")).getValue());
+        insLogin.setText((String) row.get(table.getColumn("login")).getValue());
+        nameUser.setText(insLastName.getText() + " " + insFirstName.getText() + " " + insSecondName.getText());
+        roleUser.setText((String) row.get(table.getColumn("name")).getValue());
+
     }
 
     @FXML

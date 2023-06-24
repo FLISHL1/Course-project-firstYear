@@ -39,8 +39,8 @@ public class AuthController {
     private void buttonClick(ActionEvent event) throws SQLException {
         switch (((Button) event.getSource()).getId()){
             case "butLogin":{
-//                insLogin.setText("kirill.kk");
-//                insPassword.setText("15022005");
+                insLogin.setText("kirill.kk");
+                insPassword.setText("15022005");
                 Table table;
 
 //                          Проверка на наличие запрашиваемой таблицы в памяти
