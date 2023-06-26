@@ -72,6 +72,12 @@ public class Table extends ArrayList<RowTabel> {
         this.remove(row);
         return row;
     }
+    public RowTabel delRow(String column, Integer searchValue){
+        RowTabel row = null;
+        for (int i = 0; i < size(); i++) row = get(i).get(getColumn(column), searchValue);
+        this.remove(row);
+        return row;
+    }
     @Override
     public String toString() {
 

@@ -18,4 +18,5 @@ public class Query {
             "(id_user, id_role)\n" +
             "SELECT Users.id, %s FROM Users\n" +
             "%s;";
+
 }

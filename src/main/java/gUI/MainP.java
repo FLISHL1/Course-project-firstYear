@@ -32,7 +32,7 @@ public class MainP extends Application {
         Scene scene = new Scene(loader.load());
         primaryStage.setTitle("Main");
         primaryStage.setResizable(false);
-        primaryStage.setAlwaysOnTop(true);
+//        primaryStage.setAlwaysOnTop(true);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

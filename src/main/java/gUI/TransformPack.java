@@ -34,7 +34,7 @@ public class TransformPack extends Application {
         Scene scene = new Scene(loader.load());
         primaryStage.setTitle("Pack");
         primaryStage.setResizable(false);
-        primaryStage.setAlwaysOnTop(true);
+//        primaryStage.setAlwaysOnTop(true);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

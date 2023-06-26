@@ -37,7 +37,7 @@ public class AuthP extends Application{
 
         primaryStage.setTitle("Login");
         primaryStage.setResizable(false);
-        primaryStage.setAlwaysOnTop(true);
+//        primaryStage.setAlwaysOnTop(true);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

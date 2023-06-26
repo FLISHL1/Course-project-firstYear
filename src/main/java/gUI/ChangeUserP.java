@@ -14,7 +14,7 @@ public class ChangeUserP extends Application {
     public ChangeUserP(RowTabel row){
         new JFXPanel();
         this.row = row;
-        Platform.runLater(new Runnable() {
+       /* Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -23,7 +23,12 @@ public class ChangeUserP extends Application {
                     throw new RuntimeException(e);
                 }
             }
-        });
+        });*/
+        try {
+            start(new Stage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -32,8 +37,8 @@ public class ChangeUserP extends Application {
         Scene scene = new Scene(loader.load());
         primaryStage.setTitle("ChangeUser");
         primaryStage.setResizable(false);
-        primaryStage.setAlwaysOnTop(true);
+//        primaryStage.setAlwaysOnTop(true);
         primaryStage.setScene(scene);
-        primaryStage.show();
+        primaryStage.showAndWait();
     }
 }

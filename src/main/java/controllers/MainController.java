@@ -165,25 +165,30 @@ public class MainController implements Initializable {
         listPack.getChildren().add(boxColumn);
         for (RowTabel row: table){
             HBox box = new HBox();
-            Label id = new Label((String) (row.getCell(table.getColumn("id")).getValue()));
-            Label typeDeli = new Label((String) row.getCell(table.getColumn("type_delivery")).getValue());
-            Label weight = new Label(Integer.toString((Integer) row.getCell(table.getColumn("weight")).getValue()));
-            Label userFrom = new Label((String) (row.getCell(table.getColumn("user_from")).getValue()));
-            Label userTo = new Label((String) (row.getCell(table.getColumn("user_to")).getValue()));
+            System.out.println(Tables.get("Packs"));
+            System.out.println(table.getColumn("type_delivery"));
+            System.out.println(table.get(0).get(1));
+            Label id = new Label((row.getCell(table.getColumn("id")).toString()));
+            Label typeDeli = new Label(row.getCell(table.getColumn("type_delivery")).toString());
+            Label weight = new Label(row.getCell(table.getColumn("weight")).toString());
+            RowTabel user = Tables.get("Users").getRow("id", (Integer) row.getCell(table.getColumn("user_from")).getValue());
+            Label userFrom = new Label(user.get(Tables.get("Users").getColumn("login")).toString());
+            user = Tables.get("Users").getRow("id", (Integer) row.getCell(table.getColumn("user_to")).getValue());
+            Label userTo = new Label(user.get(Tables.get("Users").getColumn("login")).toString());
 
-      /*      box.setOnMouseClicked(event -> {
+            box.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2){
-                    searchLogin.setText(login.getText());
-                    changeUser();
+                    searchPack.setText(id.getText());
+                    changePack();
                 }else {
-                    searchLogin.setText(login.getText());
+                    searchPack.setText(id.getText());
                 }
-            });*/
-            box.setSpacing(15);
+            });
+            box.setSpacing(80);
             box.setStyle("-fx-font-size: 18px; -fx-font-family: \"Lato Semibold\"; -fx-border-color: gray;");
             box.setPadding(new Insets(10));
             box.getChildren().addAll(id, typeDeli, weight, userFrom, userTo);
-            listUsers.getChildren().add(box);
+            listPack.getChildren().add(box);
         }
     }
     @FXML
@@ -199,12 +204,19 @@ public class MainController implements Initializable {
     }
 
     private void changePack() {
-
+        System.out.println(searchPack.getText());
+        RowTabel row = Tables.get("Packs").getRow("id", Integer.parseInt(searchPack.getText()));
+        if (row != null){
+            new TransformPack(row, "edit");
+        } else {
+            AlertShow.showAlert("info", "Not Found", "Currently pack not found\n Please check valid id!", (Stage) searchLogin.getScene().getWindow());
+            return;
+        }
     }
     @FXML
     private void delPack(){
         if (searchPack.getText().equals("")) return;
-        RowTabel row = Tables.get("Packs").delRow("id", searchPack.getText());
+        RowTabel row = Tables.get("Packs").delRow("id", Integer.parseInt(searchPack.getText()));
         if (row == null){
             AlertShow.showAlert("info", "Not Found", "Currently pack not found\n Please check valid id!", (Stage) searchPack.getScene().getWindow());
             return;
@@ -217,7 +229,6 @@ public class MainController implements Initializable {
     }
     @FXML
     private void createPack(){
-
         new TransformPack(new RowTabel(), "create");
     }
     private void changeUser() {
@@ -230,6 +241,7 @@ public class MainController implements Initializable {
             return;
         }
         new ChangeUserP(row);
+
         fillUsers();
     }
 
@@ -238,7 +250,7 @@ public class MainController implements Initializable {
         if (searchLogin.getText().equals("")){
             return;
         }
-        RowTabel row = Tables.get("Users").delRow("login",searchLogin.getText());
+        RowTabel row = Tables.get("Users").delRow("login", searchLogin.getText());
         if (row == null){
             AlertShow.showAlert("info", "Not Found", "Currently user not found\n Please check valid login!", (Stage) searchLogin.getScene().getWindow());
             return;
@@ -296,36 +308,30 @@ public class MainController implements Initializable {
 
         Tables.get("Users").add(newRow);
         int i = 1;
-        newRow.add(new Cell<String>(insNewFirstName.getText()));
-        query.addArgs(Tables.get("Users").getColumn(i), newRow.get(i++));
 
-        newRow.add(new Cell<String>(insNewLastName.getText()));
-        query.addArgs(Tables.get("Users").getColumn(i), newRow.get(i++));
+        insertDBQ(insNewFirstName, newRow, query);
+        insertDBQ(insNewLastName, newRow, query);
+        insertDBQ(insNewSecondName, newRow, query);
+        insertDBQ(insNewNumberPhone, newRow, query);
+        insertDBQ(insNewAddress, newRow, query);
 
-        newRow.add(new Cell<String>(insNewSecondName.getText()));
-        query.addArgs(Tables.get("Users").getColumn(i), newRow.get(i++));
 
-        newRow.add(new Cell<String>(insNewNumberPhone.getText()));
-        query.addArgs(Tables.get("Users").getColumn(i), newRow.get(i++));
-
-        newRow.add(new Cell<String>(insNewAddress.getText()));
-        query.addArgs(Tables.get("Users").getColumn(i), newRow.get(i++));
-
+//      Работа с выбором пункта доставки
         if (newChoidceDel.isVisible()) {
             newRow.add(new Cell<Integer>(Integer.parseInt(((String) newChoidceDel.getValue()).split(" ")[0])));
-            query.addArgs(Tables.get("Users").getColumn(i), newRow.get(i++));
+            query.addArgs(Tables.get("Users").getColumn(newRow.size() - 1), newRow.get(newRow.size() - 1));
         } else
         {
             newRow.add(new Cell<Integer>(0));
             i++;
         }
+        insertDBQ(insNewLogin, newRow, query);
 
-        newRow.add(new Cell<String>(insNewLogin.getText()));
-        query.addArgs(Tables.get("Users").getColumn(i), newRow.get(i++));
 
         newRow.add(new Cell<String>(PasswordHashing.HashPassword(insRegNewPassword.getText())));
-
-        query.addArgs(Tables.get("Users").getColumn(i), newRow.get(i++));
+        query.addArgs(Tables.get("Users").getColumn(newRow.size() - 1), newRow.get(newRow.size() - 1));
+        insRegNewPassword.clear();
+//      Работа с ролью
         newRow.add(new Cell<String>(((String) newChoidceBox.getValue()).split(" ")[1]));
         BuilderQuery query1 = new BuilderQuery("InsertRole", Query.INSERT_ROLE);
         query1.addArgs("", new Cell<Integer>(Integer.parseInt(((String) newChoidceBox.getValue()).split(" ")[0])));
@@ -396,6 +402,11 @@ public class MainController implements Initializable {
 
     }
 
+    private void insertDBQ(TextField text, RowTabel newRow, BuilderQuery query){
+        newRow.add(new Cell<String>(text.getText()));
+        query.addArgs(Tables.get("Users").getColumn(newRow.size()-1), newRow.get(newRow.size()-1));
+        text.clear();
+    }
     private boolean checkChange(Cell oldValue, String newValue){
         return !oldValue.getValue().toString().equals(newValue);
 
@@ -472,6 +483,7 @@ public class MainController implements Initializable {
         ((Stage) insFirstName.getScene().getWindow()).close();
         Tables.clear();
         for(String id: AcumQuery.getAllName()){
+            System.out.println(AcumQuery.get(id).toString());
             server.requestUpdate(AcumQuery.get(id).toString());
         }
         AcumQuery.clear();

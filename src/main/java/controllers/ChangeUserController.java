@@ -95,16 +95,36 @@ public class ChangeUserController implements Initializable {
             row.getCell(table.getColumn("address")).setValue(insAddress.getText());
             query.addArgs("address", row.getCell(table.getColumn("address")));
         }
-
+        if (checkChange(row.getCell(table.getColumn("name")), ((String) choiceRole.getValue()).split(" ")[1])){
+            row.getCell(table.getColumn("name")).setValue(((String) choiceRole.getValue()).split(" ")[1]);
+            BuilderQuery query1 = new BuilderQuery("changeRole" + insLogin.getText(), Query.UPDATE, "Role_User");
+            query1.addArgs("id_role", new Cell<Integer>(Integer.parseInt(((String) choiceRole.getValue()).split(" ")[0])));
+            query1.setWhere("id_user = " + row.get(0).getValue());
+            AcumQuery.add(query1);
+        }
+        if (!row.get(Tables.get("Users").getColumn("login")).toString().equals(insLogin.getText())) {
+            if (Tables.get("Users").getRow("login", insLogin.getText()) == null) {
+                row.getCell(table.getColumn("login")).setValue(insLogin.getText());
+                query.addArgs("login", row.getCell(table.getColumn("login")));
+            } else {
+                AlertShow.showAlert("warning", "Login is available", "Login is available");
+                return;
+            }
+        }
+        if (choiceDel.isVisible() && checkChange(row.getCell(table.getColumn("id_dc")), Integer.parseInt(((String) choiceDel.getValue()).split(" ")[0]))){
+            row.getCell(table.getColumn("id_dc")).setValue(Integer.parseInt(((String) choiceDel.getValue()).split(" ")[0]));
+            query.addArgs("id_dc", row.getCell(table.getColumn("id_dc")));
+        }
 
         if (query.getLengthArg() != 0)
             AcumQuery.add(query);
-        resetChange();
-
+        ((Stage) insLogin.getScene().getWindow()).close();
     }
     private boolean checkChange(Cell oldValue, String newValue){
-        return !oldValue.getValue().toString().equals(newValue);
-
+        return !oldValue.toString().equals(newValue);
+    }
+    private boolean checkChange(Cell oldValue, Integer newValue){
+        return !oldValue.getValue().equals(newValue);
     }
     private void checkValid(ObservableList<Node> list){
         String regName = "([A-Z][a-z]*)|([А-Я][а-я]*)";

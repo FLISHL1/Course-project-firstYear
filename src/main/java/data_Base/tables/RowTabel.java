@@ -13,8 +13,8 @@ public class RowTabel extends ArrayList<Cell> {
             ResultSetMetaData metaData = result.getMetaData();
             for (int i = 1; i <= metaData.getColumnCount(); i++){
                 switch (metaData.getColumnTypeName(i).toLowerCase()){
-                    case "varchar" -> add(new Cell<String>(result.getString(i)));
-                    case "int", "int unsigned" -> add(new Cell<Integer>(result.getInt(i)));
+                    case "varchar", "char" -> add(new Cell<String>(result.getString(i)));
+                    case "int", "int unsigned", "bigint unsigned" -> add(new Cell<Integer>(result.getInt(i)));
                     case "date" -> add(new Cell<Date>(result.getDate(i)));
                 }
             }

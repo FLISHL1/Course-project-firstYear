@@ -1,5 +1,9 @@
 package controllers;
 
+import data_Base.query.AcumQuery;
+import data_Base.query.BuilderQuery;
+import data_Base.query.Query;
+import data_Base.tables.Cell;
 import data_Base.tables.RowTabel;
 import data_Base.tables.Table;
 import data_Base.tables.Tables;
@@ -8,9 +12,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.shape.QuadCurve;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,6 +33,11 @@ public class TransformPackController  implements Initializable {
     private ChoiceBox choiceDel;
     @FXML
     private ChoiceBox choiceCourier;
+    @FXML
+    private TextField insWeight;
+    @FXML
+    private Button btnReset;
+
     RowTabel row;
     String type;
     public TransformPackController(RowTabel row, String type){
@@ -35,18 +47,29 @@ public class TransformPackController  implements Initializable {
 
     @FXML
     private void resetChange(){
+        String tableName = "Users";
         Table table = Tables.get("Packs");
-/*        insFirstName.setText((String) row.get(table.getColumn("first_name")).getValue());
-        insSecondName.setText((String) row.get(table.getColumn("second_name")).getValue());
-        insLastName.setText((String) row.get(table.getColumn("last_name")).getValue());
-        insNumberPhone.setText((String) row.get(table.getColumn("number_phone")).getValue());
-        insAddress.setText((String) row.get(table.getColumn("address")).getValue());
-        insLogin.setText((String) row.get(table.getColumn("login")).getValue());
-        nameUser.setText(insLastName.getText() + " " + insFirstName.getText() + " " + insSecondName.getText());
-        roleUser.setText((String) row.get(table.getColumn("name")).getValue());*/
+        choiceTypeDeli.setValue(row.get(table.getColumn("type_delivery")).toString());
+        insWeight.setText(row.get(table.getColumn("weight")).toString());
+
+        choiceFrom.setValue(buildUserName("user_from"));
+        choiceTo.setValue(buildUserName("user_to"));
+        choiceDel.setValue(Tables.get("Delivery_Center").getRow("id", (Integer) row.get(table.getColumn("id_dc_from")).getValue()).toString());
+        choiceCourier.setValue(buildUserName("id_courier"));
 
     }
-
+    private String buildUserName(String search){
+        Table table = Tables.get("Packs");
+        String tableName = "Users";
+        StringBuilder str = new StringBuilder();
+        RowTabel rowUser = Tables.get(tableName).getRow("id", (Integer) row.get(table.getColumn(search)).getValue());
+        str.append(rowUser.get(Tables.get(tableName).getColumn("login")).toString()).append(" ");
+        str.append(rowUser.get(Tables.get(tableName).getColumn("last_name")).toString()).append(" ");
+        str.append(rowUser.get(Tables.get(tableName).getColumn("first_name")).toString()).append(" ");
+        str.append(rowUser.get(Tables.get(tableName).getColumn("second_name")).toString()).append(" ");
+        str.append(rowUser.get(Tables.get(tableName).getColumn("address")).toString()).append(" ");
+        return str.toString();
+    }
     @FXML
     private void disRed(KeyEvent event){
         if (((TextField) event.getSource()).getStyle().contains("-fx-border-color: red"))
@@ -55,13 +78,17 @@ public class TransformPackController  implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        fillsChoiceBox(new ChoiceBox[]{choiceFrom, choiceTo}, "Users");
+        fillChoiceBoxUsers(new ChoiceBox[]{choiceFrom, choiceTo}, "Users");
         fillChoiceBox(choiceDel, "Delivery_Center");
         ObservableList<String> list = FXCollections.observableArrayList();
         list.addAll("Обычная", "Срочная");
         choiceTypeDeli.setItems(list);
-        if (!type.equals("create"))
-            fillCourier(Integer.parseInt(((String) choiceTypeDeli.getValue()).split(" ")[0]));
+        if (!type.equals("create")) {
+            resetChange();
+
+        } else {
+            btnReset.setVisible(false);
+        }
     }
 
     private void fillChoiceBox(ChoiceBox box, String tableName){
@@ -71,20 +98,36 @@ public class TransformPackController  implements Initializable {
         }
         box.setItems(list);
     }
-    private void fillsChoiceBox(ChoiceBox[] boxs, String tableName){
+    private void fillChoiceBoxUsers(ChoiceBox[] boxs, String tableName){
         ObservableList<String> list = FXCollections.observableArrayList();
         for (RowTabel row: Tables.get(tableName)){
-            list.add(row.toString());
+            if (row.get(Tables.get(tableName).getColumn("name")).toString().contains("Пользо")) {
+                StringBuilder str = new StringBuilder();
+                str.append(row.get(Tables.get(tableName).getColumn("login")).toString()).append(" ");
+                str.append(row.get(Tables.get(tableName).getColumn("last_name")).toString()).append(" ");
+                str.append(row.get(Tables.get(tableName).getColumn("first_name")).toString()).append(" ");
+                str.append(row.get(Tables.get(tableName).getColumn("second_name")).toString()).append(" ");
+                str.append(row.get(Tables.get(tableName).getColumn("address")).toString()).append(" ");
+                list.add(str.toString());
+            }
         }
         for (ChoiceBox box: boxs)
             box.setItems(list);
     }
     private void fillCourier(Integer idDC){
         ObservableList<String> list = FXCollections.observableArrayList();
+        String tableName = "Users";
+        for (RowTabel row: Tables.get(tableName)){
 
-        for (RowTabel row: Tables.get("Users")){
-            if (((Integer) row.get(Tables.get("Users").getColumn("id_dc")).getValue()).equals(idDC))
-                list.add(row.toString());
+            if (((Integer) row.get(Tables.get("Users").getColumn("id_dc")).getValue()).equals(idDC)) {
+                StringBuilder str = new StringBuilder();
+                str.append(row.get(Tables.get(tableName).getColumn("login")).toString()).append(" ");
+                str.append(row.get(Tables.get(tableName).getColumn("last_name")).toString()).append(" ");
+                str.append(row.get(Tables.get(tableName).getColumn("first_name")).toString()).append(" ");
+                str.append(row.get(Tables.get(tableName).getColumn("second_name")).toString()).append(" ");
+                str.append(row.get(Tables.get(tableName).getColumn("address")).toString()).append(" ");
+                list.add(str.toString());
+            }
         }
         choiceCourier.setItems(list);
     }
@@ -93,11 +136,70 @@ public class TransformPackController  implements Initializable {
         if (!choiceCourier.isVisible()){
             choiceCourier.setVisible(true);
         }
-        System.out.println(((String) choiceDel.getValue()).split(" ")[0]);
-        if (choiceDel.getValue() != null)
+        if (choiceDel.getValue() != null) {
             fillCourier(Integer.parseInt(((String) choiceDel.getValue()).split(" ")[0]));
+
+        }
     }
 
     public void saveChange(ActionEvent event) {
+        if (!insWeight.getText().matches("[0-9]+")){
+            insWeight.setStyle("-fx-border-color: red;");
+            return;
+        }
+        if (type.equals("create")){
+            if (Tables.get("Packs").size() != 0)
+                row.addInt((Integer) (Tables.get("Packs").get(Tables.get("Packs").size()-1).get(0).getValue()) + 1);
+            else
+                row.addInt(1);
+        }
+        String nameTable = "Packs";
+        BuilderQuery query = new BuilderQuery("insertPack" + row.get(0).toString(), Query.INSERT, nameTable);
+        if (choiceTypeDeli.getValue() != null){
+            if (type.equals("create"))
+                row.add(new Cell<String>((String) choiceTypeDeli.getValue()));
+            else
+                row.get(Tables.get(nameTable).getColumn("type_delivery")).setValue((String) choiceTypeDeli.getValue());
+            query.addArgs("type_delivery", row.get(Tables.get(nameTable).getColumn("type_delivery")));
+        }
+        insertDBQ(insWeight, row, query);
+        insertDBQ(choiceFrom, row, "user_from",query);
+        insertDBQ(choiceTo, row, "user_to",query);
+
+        if (choiceDel.getValue() != null) {
+            if (type.equals("create"))
+                row.add(new Cell<Integer>((Integer) Tables.get("Delivery_Center").getRow("id", Integer.parseInt(((String) choiceDel.getValue()).split(" ")[0])).get(0).getValue()));
+            else
+                row.get(Tables.get("Packs").getColumn("id_dc_from")).setValue((Integer) Tables.get("Delivery_Center").getRow("id", Integer.parseInt(((String) choiceDel.getValue()).split(" ")[0])).get(0).getValue());
+            query.addArgs("id_dc_from", row.get(Tables.get("Packs").getColumn("id_dc_from")));
+        } else {
+            choiceDel.setStyle("-fx-border-color: red;");
+        }
+
+
+        insertDBQ(choiceCourier, row, "id_courier",query);
+
+        AcumQuery.add(query);
+        if (type.equals("create"))
+            Tables.get("Packs").add(row);
+
+        ((Stage) insWeight.getScene().getWindow()).close();
+    }
+    private void insertDBQ(TextField text, RowTabel newRow, BuilderQuery query){
+        newRow.add(new Cell<String>(text.getText()));
+        query.addArgs("weight", newRow.get(Tables.get("Packs").getColumn("weight")));
+        text.clear();
+    }
+    private void insertDBQ(ChoiceBox box, RowTabel newRow, String column, BuilderQuery query){
+        if (box.getValue() != null) {
+
+            if (type.equals("create"))
+                newRow.add(new Cell<Integer>((Integer) Tables.get("Users").getRow("login", ((String) box.getValue()).split(" ")[0]).get(0).getValue()));
+            else
+                newRow.get(Tables.get("Packs").getColumn("id_courier")).setValue((Integer) Tables.get("Users").getRow("login", ((String) box.getValue()).split(" ")[0]).get(0).getValue());
+            query.addArgs(column, row.get(Tables.get("Packs").getColumn(column)));
+        } else {
+            box.setStyle("-fx-border-color: red;");
+        }
     }
 }
