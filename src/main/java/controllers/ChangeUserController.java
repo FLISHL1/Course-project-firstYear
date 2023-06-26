@@ -1,6 +1,5 @@
 package controllers;
 
-import crypto.PasswordHashing;
 import data_Base.query.AcumQuery;
 import data_Base.query.BuilderQuery;
 import data_Base.query.Query;
@@ -8,14 +7,14 @@ import data_Base.tables.Cell;
 import data_Base.tables.RowTabel;
 import data_Base.tables.Table;
 import data_Base.tables.Tables;
-import gUI.ChangeUserP;
 import gUI.alert.AlertShow;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -40,6 +39,10 @@ public class ChangeUserController implements Initializable {
     private TextField insAddress;
     @FXML
     private TextField insLogin;
+    @FXML
+    private ChoiceBox choiceDel;
+    @FXML
+    private ChoiceBox choiceRole;
     private boolean fl;
     private RowTabel row;
     public ChangeUserController(RowTabel row){
@@ -135,7 +138,14 @@ public class ChangeUserController implements Initializable {
             fl = true;
         }
     }
-
+    @FXML
+    private void showDelCenter(ActionEvent event){
+        if(choiceRole.getValue() != null && !((String) choiceRole.getValue()).contains("Курьер")){
+            choiceDel.setVisible(false);
+        } else {
+            choiceDel.setVisible(true);
+        }
+    }
     @FXML
     private void resetChange(){
         boolean fl = false;
@@ -146,14 +156,15 @@ public class ChangeUserController implements Initializable {
                 @Override
                 public void run() {
                     Table table = Tables.get("Users");
-
-
-                    insFirstName.setText((String) row.get(table.getColumn("first_name")).getValue());
-                    insSecondName.setText((String) row.get(table.getColumn("second_name")).getValue());
-                    insLastName.setText((String) row.get(table.getColumn("last_name")).getValue());
-                    insNumberPhone.setText((String) row.get(table.getColumn("number_phone")).getValue());
-                    insAddress.setText((String) row.get(table.getColumn("address")).getValue());
-                    insLogin.setText((String) row.get(table.getColumn("login")).getValue());
+                    insFirstName.setText(row.get(table.getColumn("first_name")).toString());
+                    insSecondName.setText(row.get(table.getColumn("second_name")).toString());
+                    insLastName.setText(row.get(table.getColumn("last_name")).toString());
+                    insNumberPhone.setText(row.get(table.getColumn("number_phone")).toString());
+                    insAddress.setText(row.get(table.getColumn("address")).toString());
+                    insLogin.setText(row.get(table.getColumn("login")).toString());
+                    choiceRole.setValue(Tables.get("Roles").getRow("name", row.get(table.getColumn("name")).toString()).toString());
+                    if (((Integer) row.get(table.getColumn("id_dc")).getValue()) != 0)
+                        choiceDel.setValue(Tables.get("Delivery_Center").getRow("id", (Integer) row.get(table.getColumn("id_dc")).getValue()).toString());
 
                 }
             }, "Reset");
@@ -169,6 +180,21 @@ public class ChangeUserController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Table table = Tables.get("Roles");
+        ObservableList<Object> list = FXCollections.observableArrayList();
+        for (RowTabel row: table){
+            if (!((String) row.getCell(1).getValue()).contains("Директ"))
+                list.add(row.toString());
+        }
+        choiceRole.setItems(list);
+        table = Tables.get("Delivery_Center");
+        list = FXCollections.observableArrayList();
+        for (RowTabel row: table){
+            list.add(row.toString());
+        }
+        choiceDel.setItems(list);
+        choiceDel.setVisible(false);
         resetChange();
+
     }
 }

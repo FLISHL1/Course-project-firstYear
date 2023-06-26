@@ -7,16 +7,13 @@ import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class ChangeUserP extends Application {
-    Stage owner;
     RowTabel row;
-    public ChangeUserP(AnchorPane o, RowTabel row){
+    public ChangeUserP(RowTabel row){
         new JFXPanel();
         this.row = row;
-        owner = (Stage) o.getScene().getWindow();
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -37,7 +34,6 @@ public class ChangeUserP extends Application {
         primaryStage.setResizable(false);
         primaryStage.setAlwaysOnTop(true);
         primaryStage.setScene(scene);
-        primaryStage.initOwner(owner);
         primaryStage.show();
     }
 }

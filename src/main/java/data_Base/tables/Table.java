@@ -50,16 +50,27 @@ public class Table extends ArrayList<RowTabel> {
         }
         return row;
     }
+    public RowTabel getRow(String column, Integer searchValue){
+        RowTabel row = null;
+        for (int i = 0; i < size(); i++) {
+            row = get(i).get(getColumn(column), searchValue);
+            if (row != null){
+                break;
+            }
+        }
+        return row;
+    }
     public int getColumn(String column){
         return nameCol.indexOf(column);
     }
     public String getColumn(Integer column){
         return nameCol.get(column);
     }
-    public void delRow(String column, String searchValue){
+    public RowTabel delRow(String column, String searchValue){
         RowTabel row = null;
         for (int i = 0; i < size(); i++) row = get(i).get(getColumn(column), searchValue);
         this.remove(row);
+        return row;
     }
     @Override
     public String toString() {

@@ -35,6 +35,9 @@ public class RowTabel extends ArrayList<Cell> {
     public RowTabel get(int indexC, String value){
         return super.get(indexC).getValue().equals(value)? this:null;
     }
+    public RowTabel get(int indexC, Integer value){
+        return super.get(indexC).getValue() == value? this:null;
+    }
     public Cell getCell(int indexC){
         return super.get(indexC);
     }

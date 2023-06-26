@@ -14,4 +14,9 @@ public class Cell<T> {
     public void setValue(T value) {
         this.value = (T) value;
     }
+
+    @Override
+    public String toString() {
+        return new StringBuilder().append(value).toString();
+    }
 }

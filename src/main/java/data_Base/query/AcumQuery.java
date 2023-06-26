@@ -18,4 +18,7 @@ public class AcumQuery {
     public static boolean contain(String id){
         return acum.containsKey(id);
     }
+    public static void clear(){
+        acum.clear();
+    }
 }

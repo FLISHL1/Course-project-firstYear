@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="387.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TransformPackController">
+   <children>
+      <ScrollPane hbarPolicy="NEVER" layoutY="-3.0" prefHeight="329.0" prefWidth="610.0" vvalue="1.0">
+         <content>
+            <VBox prefHeight="322.0" prefWidth="593.0">
+               <children>
+                  <HBox prefHeight="53.0" prefWidth="584.0">
+                     <children>
+                        <Label fx:id="firstName" prefHeight="36.0" prefWidth="250.0" text="Тип доставки:">
+                           <font>
+                              <Font name="Lato Semibold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ChoiceBox fx:id="choiceTypeDeli" prefHeight="29.0" prefWidth="262.0">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </ChoiceBox>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="53.0" prefWidth="584.0">
+                     <children>
+                        <Label fx:id="lastName" prefHeight="36.0" prefWidth="250.0" text="Вес:">
+                           <font>
+                              <Font name="Lato Semibold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="insWeight" onKeyTyped="#disRed" prefHeight="35.0" prefWidth="263.0" promptText="Weight">
+                           <font>
+                              <Font name="Lato Semibold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="53.0" prefWidth="593.0">
+                     <children>
+                        <Label fx:id="secondName" prefHeight="36.0" prefWidth="250.0" text="От Кого:">
+                           <font>
+                              <Font name="Lato Semibold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ChoiceBox fx:id="choiceTo" prefHeight="29.0" prefWidth="262.0">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </ChoiceBox>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="53.0" prefWidth="593.0">
+                     <children>
+                        <Label fx:id="numberPhone" prefHeight="36.0" prefWidth="250.0" text="Кому:">
+                           <font>
+                              <Font name="Lato Semibold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ChoiceBox fx:id="choiceFrom" prefHeight="29.0" prefWidth="262.0">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </ChoiceBox>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="53.0" prefWidth="584.0">
+                     <children>
+                        <Label fx:id="address" prefHeight="36.0" prefWidth="250.0" text="Пункт доставки:">
+                           <font>
+                              <Font name="Lato Semibold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ChoiceBox fx:id="choiceDel" onAction="#showCourier" prefHeight="29.0" prefWidth="262.0">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </ChoiceBox>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="53.0" prefWidth="584.0">
+                     <children>
+                        <Label fx:id="login" prefHeight="36.0" prefWidth="250.0" text="Курьер:">
+                           <font>
+                              <Font name="Lato Semibold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ChoiceBox fx:id="choiceCourier" prefHeight="29.0" prefWidth="262.0" visible="false">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </ChoiceBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+      <ButtonBar layoutX="411.0" layoutY="333.0" prefHeight="40.0" prefWidth="185.0">
+         <buttons>
+            <Button fx:id="btnSave" mnemonicParsing="false" onAction="#saveChange" text="Save">
+               <font>
+                  <Font name="Lato Semibold" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnReset" mnemonicParsing="false" onAction="#resetChange" text="Reset">
+               <font>
+                  <Font name="Lato Semibold" size="18.0" />
+               </font>
+            </Button>
+         </buttons>
+      </ButtonBar>
+   </children>
+</AnchorPane>

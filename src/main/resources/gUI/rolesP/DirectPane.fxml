@@ -15,17 +15,17 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="673.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
    <children>
-      <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane prefHeight="400.0" prefWidth="673.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="User">
             <content>
               <AnchorPane id="tabUser" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ScrollPane hbarPolicy="NEVER" prefHeight="301.0" prefWidth="600.0">
+                        <ScrollPane hbarPolicy="NEVER" layoutY="-1.0" prefHeight="302.0" prefWidth="673.0">
                            <content>
-                              <VBox prefHeight="433.0" prefWidth="584.0">
+                              <VBox prefHeight="450.0" prefWidth="658.0">
                                  <children>
                                     <HBox prefHeight="1.0" prefWidth="584.0">
                                        <children>
@@ -34,7 +34,7 @@
                                                 <Font name="Lato Semibold" size="18.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </Label>
                                           <TextField fx:id="insFirstName" onKeyTyped="#disRed" prefHeight="35.0" prefWidth="263.0" promptText="FirstName">
@@ -42,7 +42,7 @@
                                                 <Font name="Lato Semibold" size="18.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </TextField>
                                        </children>
@@ -54,7 +54,7 @@
                                                 <Font name="Lato Semibold" size="18.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </Label>
                                           <TextField fx:id="insLastName" onKeyTyped="#disRed" prefHeight="35.0" prefWidth="263.0" promptText="LastName">
@@ -62,7 +62,7 @@
                                                 <Font name="Lato Semibold" size="18.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </TextField>
                                        </children>
@@ -74,7 +74,7 @@
                                                 <Font name="Lato Semibold" size="18.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </Label>
                                           <TextField fx:id="insSecondName" onKeyTyped="#disRed" prefHeight="35.0" prefWidth="263.0" promptText="SecondName">
@@ -82,7 +82,7 @@
                                                 <Font name="Lato Semibold" size="18.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </TextField>
                                        </children>
@@ -94,7 +94,7 @@
                                                 <Font name="Lato Semibold" size="18.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </Label>
                                           <TextField fx:id="insNumberPhone" onKeyTyped="#disRed" prefHeight="35.0" prefWidth="263.0" promptText="NumberPhone">
@@ -102,7 +102,7 @@
                                                 <Font name="Lato Semibold" size="18.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </TextField>
                                        </children>
@@ -114,7 +114,7 @@
                                                 <Font name="Lato Semibold" size="18.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </Label>
                                           <TextField fx:id="insAddress" onKeyTyped="#disRed" prefHeight="35.0" prefWidth="263.0" promptText="Address">
@@ -122,7 +122,7 @@
                                                 <Font name="Lato Semibold" size="18.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </TextField>
                                        </children>
@@ -134,7 +134,7 @@
                                                 <Font name="Lato Semibold" size="18.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </Label>
                                           <TextField fx:id="insLogin" onKeyTyped="#disRed" prefHeight="35.0" prefWidth="263.0" promptText="Login">
@@ -142,7 +142,7 @@
                                                 <Font name="Lato Semibold" size="18.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </TextField>
                                        </children>
@@ -154,15 +154,18 @@
                                                 <Font name="Lato Semibold" size="18.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </Label>
-                                          <VBox prefHeight="35.0" prefWidth="263.0">
+                                          <VBox prefHeight="80.0" prefWidth="263.0">
                                              <children>
                                                 <TextField fx:id="insOldPassword" onKeyTyped="#disRed" prefHeight="35.0" promptText="OldPassword">
                                                    <font>
                                                       <Font name="Lato Semibold" size="18.0" />
                                                    </font>
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
                                                 </TextField>
                                                 <TextField fx:id="insNewPassword" onKeyTyped="#disRed" prefHeight="35.0" promptText="NewPassword">
                                                    <font>
@@ -174,7 +177,7 @@
                                                 </TextField>
                                              </children>
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </VBox>
                                        </children>
@@ -183,7 +186,7 @@
                               </VBox>
                            </content>
                         </ScrollPane>
-                        <ButtonBar layoutX="378.0" layoutY="311.0" prefHeight="40.0" prefWidth="200.0">
+                        <ButtonBar layoutX="459.0" layoutY="309.0" prefHeight="40.0" prefWidth="200.0">
                           <buttons>
                               <Button fx:id="btnSave" mnemonicParsing="false" onAction="#saveChange" text="Save">
                                  <font>
@@ -203,14 +206,65 @@
           </Tab>
           <Tab text="Packs">
             <content>
-              <AnchorPane id="tabPacks" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane id="tabPacks" minHeight="0.0" minWidth="0.0" prefHeight="371.0" prefWidth="687.0">
+                     <children>
+                        <HBox layoutX="1.0" prefHeight="55.0" prefWidth="673.0">
+                           <children>
+                              <Label prefHeight="33.0" prefWidth="148.0" text="ID Посылки:">
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="Lato Semibold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="searchPack" prefHeight="35.0" prefWidth="169.0" promptText="Searchable Pack">
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="Lato Semibold" size="18.0" />
+                                 </font>
+                              </TextField>
+                              <Button fx:id="btnChangePack" mnemonicParsing="false" onAction="#saveChange" text="Change">
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="Lato Semibold" size="18.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnDelPack" mnemonicParsing="false" onAction="#delPack" text="Delete">
+                                 <font>
+                                    <Font name="Lato Semibold" size="18.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="btnCreatePack" mnemonicParsing="false" onAction="#createPack" text="Create">
+                                 <font>
+                                    <Font name="Lato Semibold" size="18.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <ScrollPane layoutX="-1.0" layoutY="55.0" prefHeight="318.0" prefWidth="673.0">
+                           <content>
+                              <VBox fx:id="listPack" prefHeight="317.0" prefWidth="658.0" />
+                           </content>
+                        </ScrollPane>
+                     </children></AnchorPane>
             </content>
           </Tab>
             <Tab text="Reg User">
               <content>
                 <AnchorPane id="tabRegUser" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ScrollPane hbarPolicy="NEVER" layoutX="1.0" layoutY="-2.0" prefHeight="316.0" prefWidth="600.0">
+                        <ScrollPane hbarPolicy="NEVER" layoutX="1.0" layoutY="-2.0" prefHeight="316.0" prefWidth="673.0">
                            <content>
                               <VBox prefHeight="442.0" prefWidth="584.0">
                                  <children>
@@ -218,7 +272,7 @@
                                        <children>
                                           <Label prefHeight="32.0" prefWidth="250.0" text="Роль:">
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                              <font>
                                                 <Font name="Lato Semibold" size="18.0" />
@@ -226,7 +280,7 @@
                                           </Label>
                                           <ChoiceBox fx:id="newChoidceBox" onAction="#showDelCenter" prefHeight="29.0" prefWidth="262.0">
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </ChoiceBox>
                                        </children>
@@ -238,7 +292,7 @@
                                                 <Font name="Lato Semibold" size="18.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </Label>
                                           <TextField fx:id="insNewFirstName" onKeyTyped="#disRed" prefHeight="35.0" prefWidth="263.0" promptText="FirstName">
@@ -246,7 +300,7 @@
                                                 <Font name="Lato Semibold" size="18.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </TextField>
                                        </children>
@@ -258,7 +312,7 @@
                                                 <Font name="Lato Semibold" size="18.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </Label>
                                           <TextField fx:id="insNewLastName" onKeyTyped="#disRed" prefHeight="35.0" prefWidth="263.0" promptText="LastName">
@@ -266,7 +320,7 @@
                                                 <Font name="Lato Semibold" size="18.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </TextField>
                                        </children>
@@ -278,7 +332,7 @@
                                                 <Font name="Lato Semibold" size="18.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </Label>
                                           <TextField fx:id="insNewSecondName" onKeyTyped="#disRed" prefHeight="35.0" prefWidth="263.0" promptText="SecondName">
@@ -286,7 +340,7 @@
                                                 <Font name="Lato Semibold" size="18.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </TextField>
                                        </children>
@@ -298,7 +352,7 @@
                                                 <Font name="Lato Semibold" size="18.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </Label>
                                           <TextField fx:id="insNewNumberPhone" onKeyTyped="#disRed" prefHeight="35.0" prefWidth="263.0" promptText="NumberPhone">
@@ -306,7 +360,7 @@
                                                 <Font name="Lato Semibold" size="18.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </TextField>
                                        </children>
@@ -318,7 +372,7 @@
                                                 <Font name="Lato Semibold" size="18.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </Label>
                                           <TextField fx:id="insNewAddress" onKeyTyped="#disRed" prefHeight="35.0" prefWidth="263.0" promptText="Address">
@@ -326,7 +380,7 @@
                                                 <Font name="Lato Semibold" size="18.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </TextField>
                                        </children>
@@ -338,12 +392,12 @@
                                                 <Font name="Lato Semibold" size="18.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </Label>
                                           <ChoiceBox fx:id="newChoidceDel" prefHeight="29.0" prefWidth="262.0">
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </ChoiceBox>
                                        </children>
@@ -355,7 +409,7 @@
                                                 <Font name="Lato Semibold" size="18.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </Label>
                                           <TextField fx:id="insNewLogin" onKeyTyped="#disRed" prefHeight="35.0" prefWidth="263.0" promptText="Login">
@@ -363,7 +417,7 @@
                                                 <Font name="Lato Semibold" size="18.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </TextField>
                                        </children>
@@ -375,7 +429,7 @@
                                                 <Font name="Lato Semibold" size="18.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </Label>
                                           <TextField fx:id="insRegNewPassword" onKeyTyped="#disRed" prefHeight="35.0" prefWidth="263.0" promptText="Password">
@@ -383,7 +437,7 @@
                                                 <Font name="Lato Semibold" size="18.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                              </HBox.margin>
                                           </TextField>
                                        </children>
@@ -392,7 +446,7 @@
                               </VBox>
                            </content>
                         </ScrollPane>
-                        <Button fx:id="btnRegUserSave" layoutX="476.0" layoutY="322.0" mnemonicParsing="false" onAction="#saveChange" text="Save">
+                        <Button fx:id="btnRegUserSave" layoutX="581.0" layoutY="322.0" mnemonicParsing="false" onAction="#saveChange" text="Save">
                            <font>
                               <Font name="Lato Semibold" size="18.0" />
                            </font>
@@ -404,7 +458,7 @@
               <content>
                 <AnchorPane id="tabUsers" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <HBox prefHeight="49.0" prefWidth="598.0">
+                        <HBox prefHeight="55.0" prefWidth="673.0">
                            <children>
                               <Label prefHeight="33.0" prefWidth="148.0" text="Логин:">
                                  <HBox.margin>
@@ -440,9 +494,9 @@
                               </Button>
                            </children>
                         </HBox>
-                        <ScrollPane layoutY="54.0" prefHeight="318.0" prefWidth="600.0">
+                        <ScrollPane layoutY="54.0" prefHeight="318.0" prefWidth="673.0">
                            <content>
-                              <VBox fx:id="listUsers" prefHeight="317.0" prefWidth="585.0" />
+                              <VBox fx:id="listUsers" prefHeight="317.0" prefWidth="657.0" />
                            </content>
                         </ScrollPane>
                      </children></AnchorPane>
@@ -452,9 +506,9 @@
       </TabPane>
       <AnchorPane layoutX="223.0" prefHeight="0.0" prefWidth="378.0">
          <children>
-            <HBox prefHeight="31.0" prefWidth="378.0">
+            <HBox prefHeight="31.0" prefWidth="450.0">
                <children>
-                  <Label fx:id="nameUser" prefHeight="29.0" prefWidth="192.0" text="Иванов Иван Иванович" wrapText="true">
+                  <Label fx:id="nameUser" prefHeight="29.0" prefWidth="266.0" text="Иванов Иван Иванович" wrapText="true">
                      <font>
                         <Font name="Lato Semibold" size="14.0" />
                      </font>
