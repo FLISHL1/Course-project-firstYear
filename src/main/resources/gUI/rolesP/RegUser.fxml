@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="tabRegUser" minHeight="0.0" minWidth="0.0" prefHeight="362.0" prefWidth="675.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RegUserController">
+   <children>
+      <ScrollPane hbarPolicy="NEVER" layoutX="1.0" layoutY="-2.0" prefHeight="316.0" prefWidth="673.0">
+         <content>
+            <VBox prefHeight="442.0" prefWidth="584.0">
+               <children>
+                  <HBox prefHeight="52.0" prefWidth="564.0">
+                     <children>
+                        <Label prefHeight="32.0" prefWidth="250.0" text="Роль:">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Lato Semibold" size="18.0" />
+                           </font>
+                        </Label>
+                        <ChoiceBox fx:id="choiceRole" onAction="#showDelCenter" prefHeight="29.0" prefWidth="262.0">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                           </HBox.margin>
+                        </ChoiceBox>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="55.0" prefWidth="562.0">
+                     <children>
+                        <Label prefHeight="36.0" prefWidth="250.0" text="Имя:">
+                           <font>
+                              <Font name="Lato Semibold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="insFirstName" onKeyTyped="#disRed" prefHeight="35.0" prefWidth="263.0" promptText="FirstName">
+                           <font>
+                              <Font name="Lato Semibold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="55.0" prefWidth="546.0">
+                     <children>
+                        <Label prefHeight="36.0" prefWidth="250.0" text="Фамилия:">
+                           <font>
+                              <Font name="Lato Semibold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="insLastName" onKeyTyped="#disRed" prefHeight="35.0" prefWidth="263.0" promptText="LastName">
+                           <font>
+                              <Font name="Lato Semibold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="1.0" prefWidth="584.0">
+                     <children>
+                        <Label prefHeight="36.0" prefWidth="250.0" text="Отчество:">
+                           <font>
+                              <Font name="Lato Semibold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="insSecondName" onKeyTyped="#disRed" prefHeight="35.0" prefWidth="263.0" promptText="SecondName">
+                           <font>
+                              <Font name="Lato Semibold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="1.0" prefWidth="584.0">
+                     <children>
+                        <Label prefHeight="36.0" prefWidth="250.0" text="Телефон:">
+                           <font>
+                              <Font name="Lato Semibold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="insNumberPhone" onKeyTyped="#disRed" prefHeight="35.0" prefWidth="263.0" promptText="NumberPhone">
+                           <font>
+                              <Font name="Lato Semibold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="1.0" prefWidth="584.0">
+                     <children>
+                        <Label prefHeight="36.0" prefWidth="250.0" text="Адрес:">
+                           <font>
+                              <Font name="Lato Semibold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="insAddress" onKeyTyped="#disRed" prefHeight="35.0" prefWidth="263.0" promptText="Address">
+                           <font>
+                              <Font name="Lato Semibold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="1.0" prefWidth="584.0">
+                     <children>
+                        <Label prefHeight="36.0" prefWidth="250.0" text="Пункт доставки:">
+                           <font>
+                              <Font name="Lato Semibold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ChoiceBox fx:id="choiceDel" prefHeight="29.0" prefWidth="262.0">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                           </HBox.margin>
+                        </ChoiceBox>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="1.0" prefWidth="584.0">
+                     <children>
+                        <Label prefHeight="36.0" prefWidth="250.0" text="Логин:">
+                           <font>
+                              <Font name="Lato Semibold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="insLogin" onKeyTyped="#disRed" prefHeight="35.0" prefWidth="263.0" promptText="Login">
+                           <font>
+                              <Font name="Lato Semibold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="1.0" prefWidth="584.0">
+                     <children>
+                        <Label prefHeight="36.0" prefWidth="250.0" text="Пароль:">
+                           <font>
+                              <Font name="Lato Semibold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="insPassword" onKeyTyped="#disRed" prefHeight="35.0" prefWidth="263.0" promptText="Password">
+                           <font>
+                              <Font name="Lato Semibold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+      <Button fx:id="btnRegUserSave" layoutX="540.0" layoutY="320.0" mnemonicParsing="false" onAction="#saveChange" text="Registration">
+         <font>
+            <Font name="Lato Semibold" size="18.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

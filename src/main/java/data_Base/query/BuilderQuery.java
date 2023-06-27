@@ -40,13 +40,15 @@ public class BuilderQuery {
         this.query = query;
         where = "";
     }
-    public void addArgs(String nameCol, Cell value){
+    public BuilderQuery addArgs(String nameCol, Cell value){
         args.put(nameCol, value);
+        return this;
     }
 
-    public void setWhere(String where){
+    public BuilderQuery setWhere(String where){
         this.where = "WHERE ";
         this.where += where;
+        return this;
     }
     @Override
     public String toString() {

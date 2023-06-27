@@ -68,13 +68,23 @@ public class Table extends ArrayList<RowTabel> {
     }
     public RowTabel delRow(String column, String searchValue){
         RowTabel row = null;
-        for (int i = 0; i < size(); i++) row = get(i).get(getColumn(column), searchValue);
+        for (int i = 0; i < size(); i++) {
+            row = get(i).get(getColumn(column), searchValue);
+            if (row != null){
+                break;
+            }
+        }
         this.remove(row);
         return row;
     }
     public RowTabel delRow(String column, Integer searchValue){
         RowTabel row = null;
-        for (int i = 0; i < size(); i++) row = get(i).get(getColumn(column), searchValue);
+        for (int i = 0; i < size(); i++) {
+            row = get(i).get(getColumn(column), searchValue);
+            if (row != null){
+                break;
+            }
+        }
         this.remove(row);
         return row;
     }

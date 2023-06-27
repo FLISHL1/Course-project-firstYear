@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="251.0" prefWidth="304.0" xmlns="http://javafx.com/javafx/19-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AuthController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="273.0" prefWidth="304.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AuthController">
    <children>
       <TextField fx:id="insLogin" prefHeight="29.0" prefWidth="204.0" promptText="Login">
          <VBox.margin>
@@ -26,9 +26,9 @@
             <Font name="Lato Semibold" size="18.0" />
          </font>
       </PasswordField>
-      <HBox alignment="TOP_CENTER" prefHeight="34.0" prefWidth="304.0">
+      <HBox alignment="TOP_CENTER" prefHeight="39.0" prefWidth="304.0">
          <children>
-            <Button fx:id="butLogin" onAction="#buttonClick"  prefHeight="28.0" prefWidth="79.0" text="Login">
+            <Button fx:id="butLogin" onAction="#buttonClick" prefHeight="28.0" prefWidth="79.0" text="Login">
                <padding>
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
                </padding>
@@ -39,7 +39,7 @@
                   <Insets right="75.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="butCancel" onAction="#buttonClick" mnemonicParsing="false" text="Cancel">
+            <Button fx:id="butCancel" mnemonicParsing="false" onAction="#buttonClick" text="Cancel">
                <padding>
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
                </padding>
@@ -49,7 +49,22 @@
             </Button>
          </children>
          <VBox.margin>
-            <Insets top="5.0" />
+            <Insets />
+         </VBox.margin>
+      </HBox>
+      <HBox alignment="TOP_CENTER" prefHeight="34.0" prefWidth="304.0">
+         <children>
+            <Button fx:id="btnReg" mnemonicParsing="false" onAction="#buttonClick" text="Registration">
+               <padding>
+                  <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+               </padding>
+               <font>
+                  <Font name="Lato Semibold" size="18.0" />
+               </font>
+            </Button>
+         </children>
+         <VBox.margin>
+            <Insets top="10.0" />
          </VBox.margin>
       </HBox>
    </children>

@@ -16,7 +16,7 @@ public class TransformPack extends Application {
         new JFXPanel();
         this.row = row;
         this.type = type;
-        Platform.runLater(new Runnable() {
+        /*Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -25,7 +25,12 @@ public class TransformPack extends Application {
                     throw new RuntimeException(e);
                 }
             }
-        });
+        });*/
+        try {
+            start(new Stage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -36,6 +41,6 @@ public class TransformPack extends Application {
         primaryStage.setResizable(false);
 //        primaryStage.setAlwaysOnTop(true);
         primaryStage.setScene(scene);
-        primaryStage.show();
+        primaryStage.showAndWait();
     }
 }

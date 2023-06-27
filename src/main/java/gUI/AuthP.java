@@ -1,6 +1,5 @@
 package gUI;
 
-import data_Base.Server;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -11,10 +10,9 @@ import java.io.IOException;
 
 
 public class AuthP extends Application{
-    private Server server;
 
-    public AuthP(Server server) {
-        this.server = server;
+
+    public AuthP() {
         new JFXPanel();
 
         Platform.runLater(new Runnable() {
@@ -32,7 +30,7 @@ public class AuthP extends Application{
     @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AuthPage.fxml"));
-        loader.setControllerFactory(param -> new controllers.AuthController(server));
+        loader.setControllerFactory(param -> new controllers.AuthController());
         Scene scene = new Scene(loader.load());
 
         primaryStage.setTitle("Login");

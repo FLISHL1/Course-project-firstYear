@@ -17,19 +17,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -55,25 +52,7 @@ public class MainController implements Initializable {
     private Label nameUser;
     @FXML
     private Label roleUser;
-//    TabRegUser
-    @FXML
-    private ChoiceBox<Object> newChoidceBox;
-    @FXML
-    private ChoiceBox<Object> newChoidceDel;
-    @FXML
-    private TextField insNewLogin;
-    @FXML
-    private TextField insNewFirstName;
-    @FXML
-    private TextField insNewLastName;
-    @FXML
-    private TextField insNewSecondName;
-    @FXML
-    private TextField insNewNumberPhone;
-    @FXML
-    private TextField insNewAddress;
-    @FXML
-    private TextField insRegNewPassword;
+
 //    TabUsers
     @FXML
     private VBox listUsers;
@@ -89,8 +68,8 @@ public class MainController implements Initializable {
     private Server server;
 
     private boolean fl;
-    public MainController(Server server) {
-        this.server = server;
+    public MainController() {
+        this.server = Server.getInstance();
 
     }
 
@@ -102,23 +81,11 @@ public class MainController implements Initializable {
 
         query = new BuilderQuery("getRole", Query.GET_TABLE, "Roles");
         Tables.add("Roles", server.request(query.toString()));
-        Table table = Tables.get("Roles");
-        ObservableList<Object> list = FXCollections.observableArrayList();
-        for (RowTabel row: table){
-            if (!((String) row.getCell(1).getValue()).contains("Директ"))
-                list.add(row.toString());
-        }
-        newChoidceBox.setItems(list);
+
 
         query = new BuilderQuery("getDelCenter", Query.GET_TABLE, "Delivery_Center");
         Tables.add("Delivery_Center", server.request(query.toString()));
-        table = Tables.get("Delivery_Center");
-        list = FXCollections.observableArrayList();
-        for (RowTabel row: table){
-            list.add(row.toString());
-        }
-        newChoidceDel.setItems(list);
-        newChoidceDel.setVisible(false);
+
         fillUsers();
         query = new BuilderQuery("getPacks", Query.GET_TABLE, "Packs");
         Tables.add("Packs", server.request(query.toString()));
@@ -192,12 +159,16 @@ public class MainController implements Initializable {
         }
     }
     @FXML
+    private void createUser(){
+        new ChangeUserP("create", "Директор");
+        fillUsers();
+    }
+    @FXML
     private void saveChange(ActionEvent event){
         Node o = (Node) event.getSource();
         for (;!(o instanceof AnchorPane); o = o.getParent());
         switch (o.getId()){
             case "tabUser" -> userSaveChange((AnchorPane) o);
-            case "tabRegUser" -> regUser((AnchorPane) o);
             case "tabUsers" -> changeUser();
             case "tabPacks" -> changePack();
         }
@@ -230,6 +201,8 @@ public class MainController implements Initializable {
     @FXML
     private void createPack(){
         new TransformPack(new RowTabel(), "create");
+        System.out.println(Tables.get("Packs"));
+        fillPacks();
     }
     private void changeUser() {
         if (searchLogin.getText().equals("")){
@@ -240,7 +213,7 @@ public class MainController implements Initializable {
             AlertShow.showAlert("info", "Not Found", "Currently user not found\n Please check valid login!", (Stage) searchLogin.getScene().getWindow());
             return;
         }
-        new ChangeUserP(row);
+        new ChangeUserP(row, "change");
 
         fillUsers();
     }
@@ -260,88 +233,6 @@ public class MainController implements Initializable {
         query.setWhere(String.format("login = \"%s\"", searchLogin.getText()));
         System.out.println(query);
         AcumQuery.add(query);
-    }
-
-    private void regUser(AnchorPane source){
-        ObservableList<Node> list = source.getChildren();
-        for (int i = 0; i < list.size(); i++){
-            if (list.get(i) instanceof ScrollPane && ((ScrollPane) list.get(i)).getContent() instanceof VBox) {
-                list = ((VBox) ((ScrollPane) list.get(i)).getContent()).getChildren();
-                break;
-            }
-        }
-        checkValid(list);
-
-        if (fl){
-            AlertShow.showAlert("warning", "Warning", "Invalid input", (Stage) insFirstName.getScene().getWindow());
-            return;
-        }
-        if (newChoidceDel.isVisible()){
-            if (newChoidceDel.getValue() == null){
-                newChoidceDel.setStyle("-fx-border-color: red;");
-                return;
-            } else {
-                newChoidceDel.setStyle("-fx-border-color: none;");
-            }
-        }
-        if (newChoidceBox.getValue() == null){
-            newChoidceBox.setStyle("-fx-border-color: red;");
-            return;
-        }
-        Table table = Tables.get("Users");
-        RowTabel row = table.getRow("login", insNewLogin.getText());
-        if (row != null){
-            AlertShow.showAlert("warning", "Warning", "This login already exists", (Stage) insFirstName.getScene().getWindow());
-            return;
-        }
-
-
-        BuilderQuery query;
-        if (!AcumQuery.contain("RegUser"))
-            query = new BuilderQuery("RegUser", Query.INSERT, "Users");
-        else
-            query = AcumQuery.get("RegUser");
-
-        RowTabel newRow = new RowTabel();
-
-        newRow.addInt((Integer) (Tables.get("Users").get(Tables.get("Users").size()-1).get(0).getValue()) + 1);
-
-        Tables.get("Users").add(newRow);
-        int i = 1;
-
-        insertDBQ(insNewFirstName, newRow, query);
-        insertDBQ(insNewLastName, newRow, query);
-        insertDBQ(insNewSecondName, newRow, query);
-        insertDBQ(insNewNumberPhone, newRow, query);
-        insertDBQ(insNewAddress, newRow, query);
-
-
-//      Работа с выбором пункта доставки
-        if (newChoidceDel.isVisible()) {
-            newRow.add(new Cell<Integer>(Integer.parseInt(((String) newChoidceDel.getValue()).split(" ")[0])));
-            query.addArgs(Tables.get("Users").getColumn(newRow.size() - 1), newRow.get(newRow.size() - 1));
-        } else
-        {
-            newRow.add(new Cell<Integer>(0));
-            i++;
-        }
-        insertDBQ(insNewLogin, newRow, query);
-
-
-        newRow.add(new Cell<String>(PasswordHashing.HashPassword(insRegNewPassword.getText())));
-        query.addArgs(Tables.get("Users").getColumn(newRow.size() - 1), newRow.get(newRow.size() - 1));
-        insRegNewPassword.clear();
-//      Работа с ролью
-        newRow.add(new Cell<String>(((String) newChoidceBox.getValue()).split(" ")[1]));
-        BuilderQuery query1 = new BuilderQuery("InsertRole", Query.INSERT_ROLE);
-        query1.addArgs("", new Cell<Integer>(Integer.parseInt(((String) newChoidceBox.getValue()).split(" ")[0])));
-        query1.setWhere(String.format("login = \"%s\"",insNewLogin.getText()));
-
-
-        AcumQuery.add(query);
-        AcumQuery.add(query1);
-        AlertShow.showAlert("info", "Successful", "User " + insNewLogin.getText() + " created", (Stage) searchLogin.getScene().getWindow());
-        fillUsers();
     }
 
     private void userSaveChange(AnchorPane source){
@@ -368,6 +259,13 @@ public class MainController implements Initializable {
             query = AcumQuery.get("updateUser");
         query.setWhere(String.format("login = \"%s\"", row.getCell(table.getColumn("login")).getValue()));
 
+        if (!insOldPassword.getText().equals("") && PasswordHashing.checkPass(insOldPassword.getText(), (String) row.getCell(table.getColumn("password")).getValue())) {
+            row.getCell(table.getColumn("password")).setValue(PasswordHashing.HashPassword(insNewPassword.getText()));
+            query.addArgs("password", row.getCell(table.getColumn("password")));
+        } else {
+            AlertShow.showAlert("warning", "Password not corrected", "You entered the password incorrectly");
+            return;
+        }
         if (checkChange(row.getCell(table.getColumn("first_name")), insFirstName.getText())) {
             row.getCell(table.getColumn("first_name")).setValue(insFirstName.getText());
             query.addArgs("first_name", row.getCell(table.getColumn("first_name")));
@@ -390,10 +288,6 @@ public class MainController implements Initializable {
             query.addArgs("address", row.getCell(table.getColumn("address")));
         }
 
-        if (PasswordHashing.checkPass(insOldPassword.getText(), (String) row.getCell(table.getColumn("password")).getValue())) {
-            row.getCell(table.getColumn("password")).setValue(PasswordHashing.HashPassword(insNewPassword.getText()));
-            query.addArgs("password", row.getCell(table.getColumn("password")));
-        }
         if (query.getLengthArg() != 0)
             AcumQuery.add(query);
         resetChange();
@@ -402,14 +296,9 @@ public class MainController implements Initializable {
 
     }
 
-    private void insertDBQ(TextField text, RowTabel newRow, BuilderQuery query){
-        newRow.add(new Cell<String>(text.getText()));
-        query.addArgs(Tables.get("Users").getColumn(newRow.size()-1), newRow.get(newRow.size()-1));
-        text.clear();
-    }
+
     private boolean checkChange(Cell oldValue, String newValue){
         return !oldValue.getValue().toString().equals(newValue);
-
     }
 
     private void checkValid(ObservableList<Node> list){
@@ -458,7 +347,6 @@ public class MainController implements Initializable {
         insLogin.setText((String) row.get(table.getColumn("login")).getValue());
         nameUser.setText(insLastName.getText() + " " + insFirstName.getText() + " " + insSecondName.getText());
         roleUser.setText((String) row.get(table.getColumn("name")).getValue());
-
     }
 
     @FXML
@@ -468,18 +356,8 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    private void showDelCenter(ActionEvent event){
-
-        if(!((String) newChoidceBox.getValue()).contains("Курьер")){
-            newChoidceDel.setVisible(false);
-        } else {
-            newChoidceDel.setVisible(true);
-        }
-    }
-
-    @FXML
     private void exit(){
-        new AuthP(server);
+        new AuthP();
         ((Stage) insFirstName.getScene().getWindow()).close();
         Tables.clear();
         for(String id: AcumQuery.getAllName()){

@@ -9,9 +9,7 @@ import javafx.stage.Stage;
 import data_Base.Server;
 
 public class MainP extends Application {
-    private Server server;
-    public MainP(Server server){
-        this.server = server;
+    public MainP(){
         new JFXPanel();
         Platform.runLater(new Runnable() {
             @Override
@@ -28,7 +26,7 @@ public class MainP extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("rolesP/DirectPane.fxml"));
-        loader.setControllerFactory(param -> new controllers.MainController(server));
+        loader.setControllerFactory(param -> new controllers.MainController());
         Scene scene = new Scene(loader.load());
         primaryStage.setTitle("Main");
         primaryStage.setResizable(false);

@@ -7,6 +7,7 @@ import data_Base.Server;
 import data_Base.tables.RowTabel;
 import data_Base.tables.Table;
 import data_Base.tables.Tables;
+import gUI.ChangeUserP;
 import gUI.alert.AlertShow;
 import gUI.MainP;
 import javafx.event.ActionEvent;
@@ -23,16 +24,14 @@ public class AuthController {
     @FXML
     private Button butLogin;
     @FXML
-    private Button butCancel;
-    @FXML
     private TextField insLogin;
     @FXML
     private TextField insPassword;
 
     private Server server;
 
-    public AuthController(Server server){
-        this.server = server;
+    public AuthController(){
+        this.server = Server.getInstance();
     }
 
     @FXML
@@ -63,7 +62,7 @@ public class AuthController {
                 if (row == null){
                     AlertShow.showAlert("info", "User not found","Currently user not found\nPlease check login or password", (Stage) butLogin.getScene().getWindow());
                 } else if (PasswordHashing.checkPass(insPassword.getText(), (String) row.getCell(table.getColumn("password")).getValue())) {
-                    new MainP(server);
+                    new MainP();
                     Tables.add("User", table);
                     Stage stage = (Stage) butLogin.getScene().getWindow();
                     stage.close();
@@ -77,6 +76,10 @@ public class AuthController {
             }
             case "butCancel":{
                 System.exit(0);
+                break;
+            }
+            case "btnReg":{
+                new ChangeUserP(new RowTabel(), "create", "User");
             }
         }
     }
