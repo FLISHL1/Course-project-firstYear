@@ -65,7 +65,6 @@ public class  Server {
             System.exit(0);
         }
         try {
-            System.out.println(1);
             connection = DriverManager.getConnection(Config.URL_DB, Config.LOGIN_DB, Config.PASSWORD_DB);
             conSuccessful = true;
         } catch (SQLException e) {

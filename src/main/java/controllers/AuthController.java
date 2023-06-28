@@ -38,8 +38,7 @@ public class AuthController {
     private void buttonClick(ActionEvent event) throws SQLException {
         switch (((Button) event.getSource()).getId()){
             case "butLogin":{
-                insLogin.setText("kirill.kk");
-                insPassword.setText("15022005");
+
                 Table table;
 
 //                          Проверка на наличие запрашиваемой таблицы в памяти
@@ -51,7 +50,6 @@ public class AuthController {
                     query.setWhere(String.format("login = \"%s\"", insLogin.getText()));
                     ResultSet result = server.request(query.toString());
                     table = new Table(result);
-                    System.out.println(table);
                 } else {
                     table = Tables.get("User");
                 }
@@ -62,7 +60,14 @@ public class AuthController {
                 if (row == null){
                     AlertShow.showAlert("info", "User not found","Currently user not found\nPlease check login or password", (Stage) butLogin.getScene().getWindow());
                 } else if (PasswordHashing.checkPass(insPassword.getText(), (String) row.getCell(table.getColumn("password")).getValue())) {
-                    new MainP();
+                    if (table.get(0).get(table.getColumn("name")).toString().contains("ректор"))
+                        new MainP("директор");
+                    else if (table.get(0).get(table.getColumn("name")).toString().contains("Админ"))
+                        new MainP("админ");
+                    else if (table.get(0).get(table.getColumn("name")).toString().contains("Курьер"))
+                        new MainP("курьер");
+                    else if (table.get(0).get(table.getColumn("name")).toString().contains("Пользователь"))
+                        new MainP("пользователь");
                     Tables.add("User", table);
                     Stage stage = (Stage) butLogin.getScene().getWindow();
                     stage.close();

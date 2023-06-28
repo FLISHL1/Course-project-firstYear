@@ -11,7 +11,6 @@ import java.io.IOException;
 
 public class AuthP extends Application{
 
-
     public AuthP() {
         new JFXPanel();
 

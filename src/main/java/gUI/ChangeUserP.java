@@ -79,7 +79,7 @@ public class ChangeUserP extends Application {
         FXMLLoader loader;
         if (type.equals("change")) {
             loader = new FXMLLoader(getClass().getResource("rolesP/ChangeUser.fxml"));
-            loader.setControllerFactory(param -> new controllers.ChangeUserController(row));
+            loader.setControllerFactory(param -> new controllers.ChangeUserController(row, role));
             primaryStage.setTitle("ChangeUser");
         } else {
             loader = new FXMLLoader(getClass().getResource("rolesP/RegUser.fxml"));

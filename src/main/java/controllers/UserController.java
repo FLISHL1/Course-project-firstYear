@@ -1,26 +1,26 @@
 package controllers;
 
 import crypto.PasswordHashing;
+import data_Base.Server;
 import data_Base.query.AcumQuery;
 import data_Base.query.BuilderQuery;
 import data_Base.query.Query;
-import data_Base.Server;
 import data_Base.tables.Cell;
 import data_Base.tables.RowTabel;
 import data_Base.tables.Table;
 import data_Base.tables.Tables;
-import gUI.ChangeUserP;
+import gUI.AuthP;
 import gUI.TransformPack;
 import gUI.alert.AlertShow;
-import gUI.AuthP;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -30,7 +30,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable {
+public class UserController implements Initializable {
 //    TabUser
     @FXML
     private TextField insFirstName;
@@ -52,75 +52,44 @@ public class MainController implements Initializable {
     private Label nameUser;
     @FXML
     private Label roleUser;
-
-//    TabUsers
-    @FXML
-    private VBox listUsers;
-    @FXML
-    private TextField searchLogin;
-    @FXML
-    private TextField searchPack;
-//    @FXML
-//    private TableView userTable;
 //    TabPacks
     @FXML
+    private TextField searchPack;
+    @FXML
     private VBox listPack;
+    private String role;
     private Server server;
-
     private boolean fl;
-    public MainController() {
-        this.server = Server.getInstance();
+    public UserController(String role) {
+        server = Server.getInstance();
+        this.role = role;
 
     }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         resetChange();
         BuilderQuery query = new BuilderQuery("getUsers", Query.GET_USER);
         Tables.add("Users", server.request(query.toString()));
 
-        query = new BuilderQuery("getRole", Query.GET_TABLE, "Roles");
-        Tables.add("Roles", server.request(query.toString()));
-
-
         query = new BuilderQuery("getDelCenter", Query.GET_TABLE, "Delivery_Center");
         Tables.add("Delivery_Center", server.request(query.toString()));
 
-        fillUsers();
+
         query = new BuilderQuery("getPacks", Query.GET_TABLE, "Packs");
         Tables.add("Packs", server.request(query.toString()));
         fillPacks();
     }
-    private void fillUsers(){
-        listUsers.getChildren().clear();
-        Table table = Tables.get("Users");
-        HBox boxColumn = new HBox(new Label("Логин"), new Label("ФИО"), new Label("Роль"));
-        boxColumn.setSpacing(150);
-        boxColumn.setStyle("-fx-font-size: 18px; -fx-font-family: \"Lato Semibold\"; -fx-border-color: gray;");
-        boxColumn.setPadding(new Insets(10));
-        listUsers.getChildren().add(boxColumn);
-        for (RowTabel row: table){
-            if (((String) (row.getCell(table.getColumn("login")).getValue())).equals((String) Tables.get("User").get(0).get(Tables.get("User").getColumn("login")).getValue())){
-                continue;
-            }
-            HBox box = new HBox();
-            Label login = new Label((String) (row.getCell(table.getColumn("login")).getValue()));
-            Label fio = new Label((row.getCell(table.getColumn("last_name")).getValue()) + " " + (row.getCell(table.getColumn("first_name")).getValue()) + " " + (row.getCell(table.getColumn("second_name")).getValue()));
-            Label role = new Label((String) (row.getCell(table.getColumn("name")).getValue()));
-            box.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2){
-                    searchLogin.setText(login.getText());
-                    changeUser();
-                }else {
-                    searchLogin.setText(login.getText());
-                }
-            });
-            box.setSpacing(15);
-            box.setStyle("-fx-font-size: 18px; -fx-font-family: \"Lato Semibold\"; -fx-border-color: gray;");
-            box.setPadding(new Insets(10));
-            box.getChildren().addAll(login, fio, role);
-            listUsers.getChildren().add(box);
-        }
+    @FXML
+    private void saveChange(ActionEvent event){
+        Node o = (Node) event.getSource();
+        for (;!(o instanceof AnchorPane); o = o.getParent());
+        userSaveChange((AnchorPane) o);
+
+    }
+    @FXML
+    private void createPack(){
+        new TransformPack(new RowTabel(), "create");
+        fillPacks();
     }
     private void fillPacks(){
         listPack.getChildren().clear();
@@ -130,11 +99,19 @@ public class MainController implements Initializable {
         boxColumn.setStyle("-fx-font-size: 18px; -fx-font-family: \"Lato Semibold\"; -fx-border-color: gray;");
         boxColumn.setPadding(new Insets(10));
         listPack.getChildren().add(boxColumn);
-        for (RowTabel row: table){
+        for (RowTabel row: table) {
+            boolean cont = true;
+            if (role.contains("пользователь") && ((Integer) Tables.get("User").get(0).get(0).getValue()).equals((Integer) row.getCell(table.getColumn("user_from")).getValue())) {
+                cont = false;
+            }
+            if (role.contains("пользователь") && ((Integer) Tables.get("User").get(0).get(0).getValue()).equals((Integer) row.getCell(table.getColumn("user_to")).getValue())) {
+                cont = false;
+            }
+            if (role.contains("курьер") && ((Integer) Tables.get("User").get(0).get(0).getValue()).equals((Integer) row.getCell(table.getColumn("id_courier")).getValue())) {
+                cont = false;
+            }
+            if(cont) continue;
             HBox box = new HBox();
-            System.out.println(Tables.get("Packs"));
-            System.out.println(table.getColumn("type_delivery"));
-            System.out.println(table.get(0).get(1));
             Label id = new Label((row.getCell(table.getColumn("id")).toString()));
             Label typeDeli = new Label(row.getCell(table.getColumn("type_delivery")).toString());
             Label weight = new Label(row.getCell(table.getColumn("weight")).toString());
@@ -142,15 +119,6 @@ public class MainController implements Initializable {
             Label userFrom = new Label(user.get(Tables.get("Users").getColumn("login")).toString());
             user = Tables.get("Users").getRow("id", (Integer) row.getCell(table.getColumn("user_to")).getValue());
             Label userTo = new Label(user.get(Tables.get("Users").getColumn("login")).toString());
-
-            box.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2){
-                    searchPack.setText(id.getText());
-                    changePack();
-                }else {
-                    searchPack.setText(id.getText());
-                }
-            });
             box.setSpacing(80);
             box.setStyle("-fx-font-size: 18px; -fx-font-family: \"Lato Semibold\"; -fx-border-color: gray;");
             box.setPadding(new Insets(10));
@@ -158,83 +126,6 @@ public class MainController implements Initializable {
             listPack.getChildren().add(box);
         }
     }
-    @FXML
-    private void createUser(){
-        new ChangeUserP("create", "Директор");
-        fillUsers();
-    }
-    @FXML
-    private void saveChange(ActionEvent event){
-        Node o = (Node) event.getSource();
-        for (;!(o instanceof AnchorPane); o = o.getParent());
-        switch (o.getId()){
-            case "tabUser" -> userSaveChange((AnchorPane) o);
-            case "tabUsers" -> changeUser();
-            case "tabPacks" -> changePack();
-        }
-    }
-
-    private void changePack() {
-        System.out.println(searchPack.getText());
-        RowTabel row = Tables.get("Packs").getRow("id", Integer.parseInt(searchPack.getText()));
-        if (row != null){
-            new TransformPack(row, "edit");
-        } else {
-            AlertShow.showAlert("info", "Not Found", "Currently pack not found\n Please check valid id!", (Stage) searchLogin.getScene().getWindow());
-            return;
-        }
-    }
-    @FXML
-    private void delPack(){
-        if (searchPack.getText().equals("")) return;
-        RowTabel row = Tables.get("Packs").delRow("id", Integer.parseInt(searchPack.getText()));
-        if (row == null){
-            AlertShow.showAlert("info", "Not Found", "Currently pack not found\n Please check valid id!", (Stage) searchPack.getScene().getWindow());
-            return;
-        }
-        fillPacks();
-        BuilderQuery query = new BuilderQuery("delPack"+searchPack.getText(), Query.DEL_ROW, "Packs");
-        query.setWhere(String.format("`id` = \"%s\"", searchPack.getText()));
-        System.out.println(query);
-        AcumQuery.add(query);
-    }
-    @FXML
-    private void createPack(){
-        new TransformPack(new RowTabel(), "create");
-        System.out.println(Tables.get("Packs"));
-        fillPacks();
-    }
-    private void changeUser() {
-        if (searchLogin.getText().equals("")){
-            return;
-        }
-        RowTabel row = Tables.get("Users").getRow("login", searchLogin.getText());
-        if (row == null){
-            AlertShow.showAlert("info", "Not Found", "Currently user not found\n Please check valid login!", (Stage) searchLogin.getScene().getWindow());
-            return;
-        }
-        new ChangeUserP(row, "change");
-
-        fillUsers();
-    }
-
-    @FXML
-    private void delUser(){
-        if (searchLogin.getText().equals("")){
-            return;
-        }
-        RowTabel row = Tables.get("Users").delRow("login", searchLogin.getText());
-        if (row == null){
-            AlertShow.showAlert("info", "Not Found", "Currently user not found\n Please check valid login!", (Stage) searchLogin.getScene().getWindow());
-            return;
-        }
-        fillUsers();
-        BuilderQuery query = new BuilderQuery("delUser"+searchLogin.getText(), Query.DEL_ROW, "Users");
-        query.setWhere(String.format("login = \"%s\"", searchLogin.getText()));
-        System.out.println(query);
-        AcumQuery.add(query);
-    }
-
     private void userSaveChange(AnchorPane source){
         ObservableList<Node> list = source.getChildren();
         for (int i = 0; i < list.size(); i++){
@@ -291,12 +182,9 @@ public class MainController implements Initializable {
         if (query.getLengthArg() != 0)
             AcumQuery.add(query);
         resetChange();
-        fillUsers();
-        AlertShow.showAlert("info", "Changes save", "Insertable changes, is saved", (Stage) searchLogin.getScene().getWindow());
+        AlertShow.showAlert("info", "Changes save", "Insertable changes, is saved", (Stage) insFirstName.getScene().getWindow());
 
     }
-
-
     private boolean checkChange(Cell oldValue, String newValue){
         return !oldValue.getValue().toString().equals(newValue);
     }
@@ -334,7 +222,6 @@ public class MainController implements Initializable {
             fl = true;
         }
     }
-
     @FXML
     private void resetChange(){
         Table table = Tables.get("User");
@@ -348,20 +235,17 @@ public class MainController implements Initializable {
         nameUser.setText(insLastName.getText() + " " + insFirstName.getText() + " " + insSecondName.getText());
         roleUser.setText((String) row.get(table.getColumn("name")).getValue());
     }
-
     @FXML
     private void disRed(KeyEvent event){
         if (((TextField) event.getSource()).getStyle().contains("-fx-border-color: red"))
             ((TextField) event.getSource()).setStyle("");
     }
-
     @FXML
     private void exit(){
         new AuthP();
         ((Stage) insFirstName.getScene().getWindow()).close();
         Tables.clear();
         for(String id: AcumQuery.getAllName()){
-            System.out.println(AcumQuery.get(id).toString());
             server.requestUpdate(AcumQuery.get(id).toString());
         }
         AcumQuery.clear();

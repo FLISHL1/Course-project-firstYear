@@ -62,8 +62,8 @@ public class RegUserController implements Initializable {
             for (RowTabel row: table){
 
                 if (!((String) row.getCell(1).getValue()).contains("Директ")){
-                    if (role.equals("Админ")){
-                        if (!((String) row.getCell(1).getValue()).contains("директ") && !((String) row.getCell(1).getValue()).contains("админ")){
+                    if (role.equals("админ")){
+                        if (!((String) row.getCell(1).getValue()).contains("директ") && !((String) row.getCell(1).getValue()).contains("Админ")){
                             list.add(row.toString());
                         }
                     } else {
@@ -120,7 +120,6 @@ public class RegUserController implements Initializable {
         }
         if (role.equals("User")) {
             for (String id : AcumQuery.getAllName()) {
-                System.out.println(AcumQuery.get(id).toString());
                 Server.getInstance().requestUpdate(AcumQuery.get(id).toString());
             }
             AcumQuery.clear();

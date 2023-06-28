@@ -7,6 +7,7 @@ import data_Base.tables.Cell;
 import data_Base.tables.RowTabel;
 import data_Base.tables.Table;
 import data_Base.tables.Tables;
+import gUI.alert.AlertShow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -141,8 +142,19 @@ public class TransformPackController  implements Initializable {
 
         }
     }
+    private boolean checkChange(Cell oldValue, String newValue){
+        return !oldValue.getValue().toString().equals(newValue);
+    }
+    private boolean checkChange(Cell oldValue, Integer newValue){
+        return !oldValue.getValue().toString().equals(newValue);
+    }
 
     public void saveChange(ActionEvent event) {
+        System.out.println(row);
+        if (choiceTo.getValue().equals(choiceFrom.getValue())){
+            AlertShow.showAlert("warning", "Warning", "From whom and to whom can not be equal", (Stage) choiceTo.getScene().getWindow());
+            return;
+        }
         if (!insWeight.getText().matches("[0-9]+")){
             insWeight.setStyle("-fx-border-color: red;");
             return;
@@ -154,30 +166,49 @@ public class TransformPackController  implements Initializable {
                 row.addInt(1);
         }
         String nameTable = "Packs";
-        BuilderQuery query = new BuilderQuery("insertPack" + row.get(0).toString(), Query.INSERT, nameTable);
+        BuilderQuery query;
+        if (type.equals("create")) {
+            query = new BuilderQuery("insertPack" + row.get(0).toString(), Query.INSERT, nameTable);
+        } else {
+            query = new BuilderQuery("insertPack" + row.get(0).toString(), Query.UPDATE, nameTable);
+            query.setWhere(String.format("id=%s", row.get(0).toString()));
+        }
         if (choiceTypeDeli.getValue() != null){
-            if (type.equals("create"))
+            if (type.equals("create")) {
                 row.add(new Cell<String>((String) choiceTypeDeli.getValue()));
-            else
-                row.get(Tables.get(nameTable).getColumn("type_delivery")).setValue((String) choiceTypeDeli.getValue());
-            query.addArgs("type_delivery", row.get(Tables.get(nameTable).getColumn("type_delivery")));
+                query.addArgs("type_delivery", row.get(Tables.get(nameTable).getColumn("type_delivery")));
+            }
+            else {
+                if (checkChange(row.get(Tables.get(nameTable).getColumn("type_delivery")), (String) choiceTypeDeli.getValue()))
+                {
+                    row.get(Tables.get(nameTable).getColumn("type_delivery")).setValue((String) choiceTypeDeli.getValue());
+                    query.addArgs("type_delivery", row.get(Tables.get(nameTable).getColumn("type_delivery")));
+                }
+            }
+
         }
         insertDBQ(insWeight, row, query);
         insertDBQ(choiceFrom, row, "user_from",query);
         insertDBQ(choiceTo, row, "user_to",query);
 
         if (choiceDel.getValue() != null) {
-            if (type.equals("create"))
+            if (type.equals("create")) {
                 row.add(new Cell<Integer>((Integer) Tables.get("Delivery_Center").getRow("id", Integer.parseInt(((String) choiceDel.getValue()).split(" ")[0])).get(0).getValue()));
-            else
-                row.get(Tables.get("Packs").getColumn("id_dc_from")).setValue((Integer) Tables.get("Delivery_Center").getRow("id", Integer.parseInt(((String) choiceDel.getValue()).split(" ")[0])).get(0).getValue());
-            query.addArgs("id_dc_from", row.get(Tables.get("Packs").getColumn("id_dc_from")));
+                query.addArgs("id_dc_from", row.get(Tables.get("Packs").getColumn("id_dc_from")));
+            }
+            else {
+                if (checkChange(row.get(Tables.get("Packs").getColumn("id_dc_from")), (Integer) Tables.get("Delivery_Center").getRow("id", Integer.parseInt(((String) choiceDel.getValue()).split(" ")[0])).get(0).getValue()))
+                {
+                    row.get(Tables.get("Packs").getColumn("id_dc_from")).setValue((Integer) Tables.get("Delivery_Center").getRow("id", Integer.parseInt(((String) choiceDel.getValue()).split(" ")[0])).get(0).getValue());
+                    query.addArgs("id_dc_from", row.get(Tables.get("Packs").getColumn("id_dc_from")));
+                }
+            }
         } else {
             choiceDel.setStyle("-fx-border-color: red;");
         }
 
 
-        insertDBQ(choiceCourier, row, "id_courier",query);
+        insertDBQ(choiceCourier, row, "id_courier", query);
 
         AcumQuery.add(query);
         if (type.equals("create"))
@@ -186,18 +217,24 @@ public class TransformPackController  implements Initializable {
         ((Stage) insWeight.getScene().getWindow()).close();
     }
     private void insertDBQ(TextField text, RowTabel newRow, BuilderQuery query){
-        newRow.add(new Cell<String>(text.getText()));
+        if (type.equals("edit") && checkChange(newRow.get(Tables.get("Packs").getColumn("weight")), text.getText())) {
+            newRow.get(Tables.get("Packs").getColumn("weight")).setValue(text.getText());
+        } else {
+            newRow.add(new Cell<String>(text.getText()));
+        }
         query.addArgs("weight", newRow.get(Tables.get("Packs").getColumn("weight")));
-        text.clear();
     }
     private void insertDBQ(ChoiceBox box, RowTabel newRow, String column, BuilderQuery query){
         if (box.getValue() != null) {
 
             if (type.equals("create"))
                 newRow.add(new Cell<Integer>((Integer) Tables.get("Users").getRow("login", ((String) box.getValue()).split(" ")[0]).get(0).getValue()));
-            else
-                newRow.get(Tables.get("Packs").getColumn("id_courier")).setValue((Integer) Tables.get("Users").getRow("login", ((String) box.getValue()).split(" ")[0]).get(0).getValue());
+            else {
+                if (checkChange(newRow.get(Tables.get("Packs").getColumn(column)), (Integer) Tables.get("Users").getRow("login", ((String) box.getValue()).split(" ")[0]).get(0).getValue()))
+                    newRow.get(Tables.get("Packs").getColumn(column)).setValue((Integer) Tables.get("Users").getRow("login", ((String) box.getValue()).split(" ")[0]).get(0).getValue());
+            }
             query.addArgs(column, row.get(Tables.get("Packs").getColumn(column)));
+
         } else {
             box.setStyle("-fx-border-color: red;");
         }

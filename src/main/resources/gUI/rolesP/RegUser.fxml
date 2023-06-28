@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="tabRegUser" minHeight="0.0" minWidth="0.0" prefHeight="362.0" prefWidth="675.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RegUserController">
+<AnchorPane id="tabRegUser" minHeight="0.0" minWidth="0.0" prefHeight="362.0" prefWidth="675.0" xmlns="http://javafx.com/javafx/19-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RegUserController">
    <children>
       <ScrollPane hbarPolicy="NEVER" layoutX="1.0" layoutY="-2.0" prefHeight="316.0" prefWidth="673.0">
          <content>

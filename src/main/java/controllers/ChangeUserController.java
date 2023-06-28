@@ -45,8 +45,10 @@ public class ChangeUserController implements Initializable {
     private ChoiceBox choiceRole;
     private boolean fl;
     private RowTabel row;
-    public ChangeUserController(RowTabel row){
+    private String role;
+    public ChangeUserController(RowTabel row, String role){
         this.row = row;
+        this.role = role;
     }
     @FXML
     private void saveChange(ActionEvent event){
@@ -203,8 +205,15 @@ public class ChangeUserController implements Initializable {
         Table table = Tables.get("Roles");
         ObservableList<Object> list = FXCollections.observableArrayList();
         for (RowTabel row: table){
-            if (!((String) row.getCell(1).getValue()).contains("Директ"))
-                list.add(row.toString());
+            if (!((String) row.getCell(1).getValue()).contains("Директ")){
+                if (role.equals("админ")){
+                    if (!row.getCell(1).toString().contains("директ") && !row.getCell(1).toString().contains("Админ")){
+                        list.add(row.toString());
+                    }
+                } else {
+                    list.add(row.toString());
+                }
+            }
         }
         choiceRole.setItems(list);
         table = Tables.get("Delivery_Center");
