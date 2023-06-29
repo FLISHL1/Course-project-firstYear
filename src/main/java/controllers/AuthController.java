@@ -43,12 +43,14 @@ public class AuthController {
 
 //                          Проверка на наличие запрашиваемой таблицы в памяти
                 if (!Tables.contain("User")) {
-//                        PreparedStatement s = server.cRequest(Query.GET_USER);
-//                        s.setString(1, insLogin.getText());
-//                        ResultSet result = server.request(s);
                     BuilderQuery query = new BuilderQuery("getUser", Query.GET_USER);
-                    query.setWhere(String.format("login = \"%s\"", insLogin.getText()));
-                    ResultSet result = server.request(query.toString());
+                    if (!insLogin.getText().equals(""))
+                        query.setWhere(insLogin.getText());
+                    else{
+                        AlertShow.showAlert("info", "User not found","Currently user not found\nPlease check login or password", (Stage) butLogin.getScene().getWindow());
+                        return;
+                    }
+                    ResultSet result = query.toQuery();
                     table = new Table(result);
                 } else {
                     table = Tables.get("User");

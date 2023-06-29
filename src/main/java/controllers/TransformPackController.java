@@ -170,8 +170,8 @@ public class TransformPackController  implements Initializable {
         if (type.equals("create")) {
             query = new BuilderQuery("insertPack" + row.get(0).toString(), Query.INSERT, nameTable);
         } else {
-            query = new BuilderQuery("insertPack" + row.get(0).toString(), Query.UPDATE, nameTable);
-            query.setWhere(String.format("id=%s", row.get(0).toString()));
+            query = new BuilderQuery("insertPack" + row.get(0).toString(), Query.UPDATE_PACK);
+            query.setWhere((Integer) row.get(0).getValue());
         }
         if (choiceTypeDeli.getValue() != null){
             if (type.equals("create")) {

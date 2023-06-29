@@ -83,8 +83,8 @@ public class RegUserController implements Initializable {
         }
 
         if (!Tables.contain("Users")) {
-            BuilderQuery query = new BuilderQuery("getUsers", Query.GET_USER);
-            Tables.add("Users", Server.getInstance().request(query.toString()));
+            BuilderQuery query = new BuilderQuery("getUsers", Query.GET_USERS);
+            Tables.add("Users", query.toQuery());
         }
 
     }
@@ -120,7 +120,7 @@ public class RegUserController implements Initializable {
         }
         if (role.equals("User")) {
             for (String id : AcumQuery.getAllName()) {
-                Server.getInstance().requestUpdate(AcumQuery.get(id).toString());
+                AcumQuery.get(id).toQuery();
             }
             AcumQuery.clear();
         }
@@ -242,7 +242,7 @@ public class RegUserController implements Initializable {
             newRow.add(new Cell<String>("Пользователь"));
             query1.addArgs("", new Cell<Integer>(5));
         }
-        query1.setWhere(String.format("login = \"%s\"", insLogin.getText()));
+        query1.setWhere(String.format(insLogin.getText()));
         AcumQuery.add(query);
         AcumQuery.add(query1);
         AlertShow.showAlert("info", "Successful", "User " + insLogin.getText() + " created", (Stage) insFirstName.getScene().getWindow());

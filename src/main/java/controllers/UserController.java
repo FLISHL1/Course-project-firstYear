@@ -68,15 +68,15 @@ public class UserController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         resetChange();
-        BuilderQuery query = new BuilderQuery("getUsers", Query.GET_USER);
-        Tables.add("Users", server.request(query.toString()));
+        BuilderQuery query = new BuilderQuery("getUsers", Query.GET_USERS);
+        Tables.add("Users", query.toQuery());
 
         query = new BuilderQuery("getDelCenter", Query.GET_TABLE, "Delivery_Center");
-        Tables.add("Delivery_Center", server.request(query.toString()));
+        Tables.add("Delivery_Center", query.toQuery());
 
 
         query = new BuilderQuery("getPacks", Query.GET_TABLE, "Packs");
-        Tables.add("Packs", server.request(query.toString()));
+        Tables.add("Packs", query.toQuery());
         fillPacks();
     }
     @FXML
@@ -145,10 +145,10 @@ public class UserController implements Initializable {
         RowTabel row = table.get(0);
         BuilderQuery query;
         if (!AcumQuery.contain("updateUser"))
-            query = new BuilderQuery("updateUser", Query.UPDATE, "Users");
+            query = new BuilderQuery("updateUser", Query.UPDATE_USER);
         else
             query = AcumQuery.get("updateUser");
-        query.setWhere(String.format("login = \"%s\"", row.getCell(table.getColumn("login")).getValue()));
+        query.setWhere(row.getCell(table.getColumn("login")).toString());
 
         if (!insOldPassword.getText().equals("") && PasswordHashing.checkPass(insOldPassword.getText(), (String) row.getCell(table.getColumn("password")).getValue())) {
             row.getCell(table.getColumn("password")).setValue(PasswordHashing.HashPassword(insNewPassword.getText()));
@@ -246,7 +246,7 @@ public class UserController implements Initializable {
         ((Stage) insFirstName.getScene().getWindow()).close();
         Tables.clear();
         for(String id: AcumQuery.getAllName()){
-            server.requestUpdate(AcumQuery.get(id).toString());
+            AcumQuery.get(id).toQuery();
         }
         AcumQuery.clear();
     }

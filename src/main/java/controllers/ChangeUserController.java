@@ -71,10 +71,10 @@ public class ChangeUserController implements Initializable {
         Table table = Tables.get("Users");
         BuilderQuery query;
         if (!AcumQuery.contain("updateUser"+row.get(table.getColumn("login"))))
-            query = new BuilderQuery("updateUser", Query.UPDATE, "Users");
+            query = new BuilderQuery("updateUser", Query.UPDATE_USER);
         else
             query = AcumQuery.get("updateUser"+row.get(table.getColumn("login")));
-        query.setWhere(String.format("login = \"%s\"", row.getCell(table.getColumn("login")).getValue()));
+        query.setWhere((String) row.getCell(table.getColumn("login")).getValue());
 
         if (checkChange(row.getCell(table.getColumn("first_name")), insFirstName.getText())) {
             row.getCell(table.getColumn("first_name")).setValue(insFirstName.getText());
@@ -99,9 +99,10 @@ public class ChangeUserController implements Initializable {
         }
         if (checkChange(row.getCell(table.getColumn("name")), ((String) choiceRole.getValue()).split(" ")[1])){
             row.getCell(table.getColumn("name")).setValue(((String) choiceRole.getValue()).split(" ")[1]);
-            BuilderQuery query1 = new BuilderQuery("changeRole" + insLogin.getText(), Query.UPDATE, "Role_User");
+
+            BuilderQuery query1 = new BuilderQuery("changeRole" + insLogin.getText(), Query.UPDATE_ROLE);
             query1.addArgs("id_role", new Cell<Integer>(Integer.parseInt(((String) choiceRole.getValue()).split(" ")[0])));
-            query1.setWhere("id_user = " + row.get(0).getValue());
+            query1.setWhere((Integer) row.get(0).getValue());
             AcumQuery.add(query1);
         }
         if (!row.get(Tables.get("Users").getColumn("login")).toString().equals(insLogin.getText())) {

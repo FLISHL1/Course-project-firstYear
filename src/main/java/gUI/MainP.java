@@ -56,7 +56,7 @@ public class MainP extends Application {
             public void handle(WindowEvent event) {
                 Tables.clear();
                 for(String id: AcumQuery.getAllName()){
-                    Server.getInstance().requestUpdate(AcumQuery.get(id).toString());
+                    AcumQuery.get(id).toUpdate();
                 }
                 AcumQuery.clear();
             }
