@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class MainP extends Application {
-    String role;
+    private String role;
     public MainP(String role){
         this.role = role;
         new JFXPanel();

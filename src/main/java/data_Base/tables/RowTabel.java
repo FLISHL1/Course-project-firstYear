@@ -22,9 +22,7 @@ public class RowTabel extends ArrayList<Cell> {
             throw new RuntimeException(e);
         }
     }
-    public RowTabel(){
-        ;
-    }
+    public RowTabel(){}
 
     public void addInt(Integer num){
         add(new Cell<Integer>(num));

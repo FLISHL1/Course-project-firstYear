@@ -33,15 +33,6 @@ public class  Server {
         return SignServer.SIGNSERVER;
     }
 
-/*    public ResultSet request(String sql){
-        try {
-             return connection.createStatement().executeQuery(sql);
-        } catch (SQLException e){
-            System.out.println("Request not correct or not connected DB");
-            System.out.println(e);
-        }
-        return null;
-    }*/
     public void requestUpdate(PreparedStatement statement){
         try {
             statement.executeUpdate();

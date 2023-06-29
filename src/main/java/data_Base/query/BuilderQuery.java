@@ -9,27 +9,7 @@ import data_Base.Server;
 import data_Base.tables.Cell;
 
 public class BuilderQuery {
-    private HashMap<String, Cell> args = new HashMap<>()/* {
-        @Override
-        public String toString() {
-            StringBuilder stringBuilder = new StringBuilder();
-            for (String key: keySet()){
-                if (stringBuilder.length() != 0)
-                    stringBuilder.append(", ");
-                if (!key.equals("")){
-                    stringBuilder.append("`").append(key).append("`").append("=");
-                }
-                if (get(key).getValue() instanceof String){
-                    stringBuilder.append("\"").append(get(key).getValue()).append("\"");
-                } else if (get(key).getValue() instanceof Integer){
-                    stringBuilder.append(get(key).getValue());
-                } else {
-                    stringBuilder.append("\"").append(get(key).getValue()).append("\"");
-                }
-            }
-            return stringBuilder.toString();
-        }
-    }*/;
+    private HashMap<String, Cell> args;
     private String id;
     private String query;
     private int index;
@@ -38,19 +18,16 @@ public class BuilderQuery {
     private boolean whereInt;
     public BuilderQuery(String id, String query, String nameTable){
         whereInt = false;
+        args = new HashMap<>();
         index = 1;
         this.id = id;
         this.query = query;
         this.nameTable = nameTable;
-        /*try {
-            this.query.setString(index++, nameTable);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }*/
         where = "";
     }
     public BuilderQuery(String id, String query){
         whereInt = false;
+        args = new HashMap<>();
         index = 1;
         this.id = id;
         this.query = query;
@@ -70,19 +47,6 @@ public class BuilderQuery {
         this.where = Integer.toString(where);
         return this;
     }
-    @Override
-    public String toString() {
-        if (!args.isEmpty() && nameTable != null){
-            return String.format(query, nameTable, args.toString(), where);
-        }
-        if (nameTable != null)
-            return String.format(query, nameTable, where);
-        else if (!args.isEmpty())
-            return String.format(query, args.toString(), where);
-        else
-            return String.format(query, where);
-    }
-
     public ResultSet toQuery() {
         Server server = Server.getInstance();
 

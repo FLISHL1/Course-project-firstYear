@@ -17,7 +17,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.shape.QuadCurve;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -39,8 +38,8 @@ public class TransformPackController  implements Initializable {
     @FXML
     private Button btnReset;
 
-    RowTabel row;
-    String type;
+    private RowTabel row;
+    private String type;
     public TransformPackController(RowTabel row, String type){
         this.row = row;
         this.type = type;
@@ -173,16 +172,17 @@ public class TransformPackController  implements Initializable {
             query = new BuilderQuery("insertPack" + row.get(0).toString(), Query.UPDATE_PACK);
             query.setWhere((Integer) row.get(0).getValue());
         }
+        String nameColumn = "type_delivery";
         if (choiceTypeDeli.getValue() != null){
             if (type.equals("create")) {
                 row.add(new Cell<String>((String) choiceTypeDeli.getValue()));
-                query.addArgs("type_delivery", row.get(Tables.get(nameTable).getColumn("type_delivery")));
+                query.addArgs(nameColumn, row.get(Tables.get(nameTable).getColumn(nameColumn)));
             }
             else {
                 if (checkChange(row.get(Tables.get(nameTable).getColumn("type_delivery")), (String) choiceTypeDeli.getValue()))
                 {
                     row.get(Tables.get(nameTable).getColumn("type_delivery")).setValue((String) choiceTypeDeli.getValue());
-                    query.addArgs("type_delivery", row.get(Tables.get(nameTable).getColumn("type_delivery")));
+                    query.addArgs(nameColumn, row.get(Tables.get(nameTable).getColumn(nameColumn)));
                 }
             }
 
@@ -190,17 +190,17 @@ public class TransformPackController  implements Initializable {
         insertDBQ(insWeight, row, query);
         insertDBQ(choiceFrom, row, "user_from",query);
         insertDBQ(choiceTo, row, "user_to",query);
-
+        nameColumn = "id_dc_to";
         if (choiceDel.getValue() != null) {
             if (type.equals("create")) {
                 row.add(new Cell<Integer>((Integer) Tables.get("Delivery_Center").getRow("id", Integer.parseInt(((String) choiceDel.getValue()).split(" ")[0])).get(0).getValue()));
-                query.addArgs("id_dc_from", row.get(Tables.get("Packs").getColumn("id_dc_from")));
+                query.addArgs(nameColumn, row.get(Tables.get("Packs").getColumn(nameColumn)));
             }
             else {
-                if (checkChange(row.get(Tables.get("Packs").getColumn("id_dc_from")), (Integer) Tables.get("Delivery_Center").getRow("id", Integer.parseInt(((String) choiceDel.getValue()).split(" ")[0])).get(0).getValue()))
+                if (checkChange(row.get(Tables.get("Packs").getColumn(nameColumn)), (Integer) Tables.get("Delivery_Center").getRow("id", Integer.parseInt(((String) choiceDel.getValue()).split(" ")[0])).get(0).getValue()))
                 {
-                    row.get(Tables.get("Packs").getColumn("id_dc_from")).setValue((Integer) Tables.get("Delivery_Center").getRow("id", Integer.parseInt(((String) choiceDel.getValue()).split(" ")[0])).get(0).getValue());
-                    query.addArgs("id_dc_from", row.get(Tables.get("Packs").getColumn("id_dc_from")));
+                    row.get(Tables.get("Packs").getColumn(nameColumn)).setValue((Integer) Tables.get("Delivery_Center").getRow("id", Integer.parseInt(((String) choiceDel.getValue()).split(" ")[0])).get(0).getValue());
+                    query.addArgs(nameColumn, row.get(Tables.get("Packs").getColumn(nameColumn)));
                 }
             }
         } else {

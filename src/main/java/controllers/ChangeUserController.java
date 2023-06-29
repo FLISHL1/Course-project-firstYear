@@ -74,7 +74,7 @@ public class ChangeUserController implements Initializable {
             query = new BuilderQuery("updateUser", Query.UPDATE_USER);
         else
             query = AcumQuery.get("updateUser"+row.get(table.getColumn("login")));
-        query.setWhere((String) row.getCell(table.getColumn("login")).getValue());
+        query.setWhere(row.getCell(table.getColumn("login")).toString());
 
         if (checkChange(row.getCell(table.getColumn("first_name")), insFirstName.getText())) {
             row.getCell(table.getColumn("first_name")).setValue(insFirstName.getText());
@@ -206,7 +206,7 @@ public class ChangeUserController implements Initializable {
         Table table = Tables.get("Roles");
         ObservableList<Object> list = FXCollections.observableArrayList();
         for (RowTabel row: table){
-            if (!((String) row.getCell(1).getValue()).contains("Директ")){
+            if (!(row.getCell(1).toString()).contains("Директ")){
                 if (role.equals("админ")){
                     if (!row.getCell(1).toString().contains("директ") && !row.getCell(1).toString().contains("Админ")){
                         list.add(row.toString());

@@ -28,19 +28,13 @@ public class AuthController {
     @FXML
     private TextField insPassword;
 
-    private Server server;
-
-    public AuthController(){
-        this.server = Server.getInstance();
-    }
+    public AuthController(){}
 
     @FXML
     private void buttonClick(ActionEvent event) throws SQLException {
         switch (((Button) event.getSource()).getId()){
             case "butLogin":{
-
                 Table table;
-
 //                          Проверка на наличие запрашиваемой таблицы в памяти
                 if (!Tables.contain("User")) {
                     BuilderQuery query = new BuilderQuery("getUser", Query.GET_USER);

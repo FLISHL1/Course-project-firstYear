@@ -1,0 +1,1055 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <help_text/>
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1192</x>
+      <y>2424</y>
+      <w>464</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>config::Config
+--
++URL_DB = "secret": String
++LOGIN_DB = "secret": String
++PASSWORD_DB = "secret": String
++NAME_BIBLE = "com.mysql.cj.jdbc.Driver": String
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2792</x>
+      <y>1144</y>
+      <w>200</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>controllers::AuthController
+--
+-butLogin: Button
+-insLogin: TextField
+-insPassword: TextField
+--
++AuthController(): ctor
+-buttonClick(ActionEvent event): void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1984</x>
+      <y>928</y>
+      <w>296</w>
+      <h>328</h>
+    </coordinates>
+    <panel_attributes>controllers::ChangeUserController
+--
+-insFirstName: TextField
+-insSecondName: TextField
+-insLastName: TextField
+-insNumberPhone: TextField
+-insAddress: TextField
+-insLogin: TextField
+-choiceDel: ChoiceBox
+-choiceRole: ChoiceBox
+-fl: boolean
+-row: RowTabel
+-role: String
+--
++ChangeUserController(RowTabel row, String role): ctor
+-saveChange(ActionEvent event): void
+-checkChange(Cell oldValue, String newValue): boolean
+-checkChange(Cell oldValue, Integer newValue): boolean
+-checkValid(ObservableList&lt;Node&gt; list): void
+-valid(TextField text, String reg): void
+-showDelCenter(ActionEvent event): void
+-resetChange(): void
+-disRed(KeyEvent event): void
++initialize(URL location, ResourceBundle resources): void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2304</x>
+      <y>928</y>
+      <w>376</w>
+      <h>344</h>
+    </coordinates>
+    <panel_attributes>controllers::RegUserController
+--
+-fl: boolean
+-role: String
+-choiceRole: ChoiceBox
+-insFirstName: TextField
+-insLastName: TextField
+-insSecondName: TextField
+-insNumberPhone: TextField
+-insAddress: TextField
+-choiceDel: ChoiceBox
+-insLogin: TextField
+-insPassword: TextField
+--
++RegUserController(String role): ctor
++initialize(URL location, ResourceBundle resources): void
+-showDelCenter(): void
+-disRed(KeyEvent event): void
+-disRed(Node node): void
+-onRed(Node node): void
+-saveChange(ActionEvent event): void
+-insertDBQ(TextField text, RowTabel newRow, BuilderQuery query): void
+-checkValid(ObservableList&lt;Node&gt; list): void
+-valid(TextField text, String reg): void
+-regUser(AnchorPane source): boolean
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3072</x>
+      <y>920</y>
+      <w>464</w>
+      <h>352</h>
+    </coordinates>
+    <panel_attributes>controllers::TransformPackController
+--
+-choiceTypeDeli: ChoiceBox
+-choiceTo: ChoiceBox
+-choiceFrom: ChoiceBox
+-choiceDel: ChoiceBox
+-choiceCourier: ChoiceBox
+-insWeight: TextField
+-btnReset: Button
+-row: RowTabel
+-type: String
+--
++TransformPackController(RowTabel row, String type): ctor
+-resetChange(): void
+-buildUserName(String search): String
+-disRed(KeyEvent event): void
++initialize(URL location, ResourceBundle resources): void
+-fillChoiceBox(ChoiceBox box, String tableName): void
+-fillChoiceBoxUsers(ChoiceBox[] boxs, String tableName): void
+-fillCourier(Integer idDC): void
++showCourier(ActionEvent event): void
+-checkChange(Cell oldValue, String newValue): boolean
+-checkChange(Cell oldValue, Integer newValue): boolean
++saveChange(ActionEvent event): void
+-insertDBQ(TextField text, RowTabel newRow, BuilderQuery query): void
+-insertDBQ(ChoiceBox box, RowTabel newRow, String column, BuilderQuery query): void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1624</x>
+      <y>864</y>
+      <w>304</w>
+      <h>488</h>
+    </coordinates>
+    <panel_attributes>controllers::DirectorController
+--
+-insFirstName: TextField
+-insSecondName: TextField
+-insLastName: TextField
+-insNumberPhone: TextField
+-insAddress: TextField
+-insLogin: TextField
+-insOldPassword: TextField
+-insNewPassword: TextField
+-nameUser: Label
+-roleUser: Label
+-searchPack: TextField
+-listPack: VBox
+-role: String
+-server: Server
+-fl: boolean
+-listUsers: VBox
+-searchLogin: TextField
+--
++DirectorController(String role): ctor
++initialize(URL location, ResourceBundle resources): void
+-fillUsers(): void
+-createUser(): void
+-saveChange(ActionEvent event): void
+-createPack(): void
+-fillPacks(): void
+-changePack(): void
+-delPack(): void
+-createPack(): void
+-changeUser(): void
+-delUser(): void
+-userSaveChange(AnchorPane source): void
+-checkChange(Cell oldValue, String newValue): boolean
+-checkValid(ObservableList&lt;Node&gt; list): void
+-valid(TextField text, String reg): void
+-resetChange(): void
+-disRed(KeyEvent event): void
+-exit(): void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1008</x>
+      <y>680</y>
+      <w>304</w>
+      <h>400</h>
+    </coordinates>
+    <panel_attributes>controllers::UserController
+--
+-insFirstName: TextField
+-insSecondName: TextField
+-insLastName: TextField
+-insNumberPhone: TextField
+-insAddress: TextField
+-insLogin: TextField
+-insOldPassword: TextField
+-insNewPassword: TextField
+-nameUser: Label
+-roleUser: Label
+-searchPack: TextField
+-listPack: VBox
+-role: String
+-server: Server
+-fl: boolean
+--
++UserController(String role): ctor
++initialize(URL location, ResourceBundle resources): void
+-saveChange(ActionEvent event): void
+-createPack(): void
+-fillPacks(): void
+-userSaveChange(AnchorPane source): void
+-checkChange(Cell oldValue, String newValue): boolean
+-checkValid(ObservableList&lt;Node&gt; list): void
+-valid(TextField text, String reg): void
+-resetChange(): void
+-disRed(KeyEvent event): void
+-exit(): void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1248</x>
+      <y>1432</y>
+      <w>360</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>crypto::PasswordHashing
+--
++HashPassword(String password): String
++checkPass(String inputPassword, String hashPassword): Boolean
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1248</x>
+      <y>1912</y>
+      <w>328</w>
+      <h>296</h>
+    </coordinates>
+    <panel_attributes>data_Base.query::BuilderQuery
+--
+-args: HashMap&lt;String, Cell&gt;
+-id: String
+-query: String
+-index: int
+-nameTable: String
+-where: String
+-whereInt: boolean
+--
++BuilderQuery(String id, String query, String nameTable): ctor
++BuilderQuery(String id, String query): ctor
++addArgs(String nameCol, Cell value): BuilderQuery
++setWhere(String where): BuilderQuery
++setWhere(Integer where): BuilderQuery
++toQuery(): ResultSet
++toUpdate(): void
+-formatQuery(): void
+-fillArgs(PreparedStatement statement): void
+-fillWhere(PreparedStatement statement): void
++getLengthArg(): int
++getId(): String
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1648</x>
+      <y>0</y>
+      <w>1496</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>data_Base.query::Query
+--
++GET_USERS = "SELECT Users.`id`, `first_name`, `last_name`, `second_name`, `number_phone`, `address`, `id_dc`, `login`, `password`, `name` FROM Users\n" + "JOIN Role_User ON Users.id = Role_User.id_user\n" + "JOIN Roles on Role_User.id_role = Roles.id;": String
++GET_USER = "SELECT Users.`id`, `first_name`, `last_name`, `second_name`, `number_phone`, `address`, `id_dc`, `login`, `password`, `name` FROM Users\n" + "JOIN Role_User ON Users.id = Role_User.id_user\n" + "JOIN Roles on Role_User.id_role = Roles.id\n" + "WHERE `login`=?;": String
++GET_TABLE = "SELECT * FROM %s %s;": String
++UPDATE_ROLE = "UPDATE `Role_User` \n" + "SET %s\n" + "WHERE `id_user`=?;": String
++UPDATE_USER = "UPDATE `Users` \n" + "SET %s\n" + "WHERE `login`=?;": String
++UPDATE_PACK = "UPDATE `Packs` \n" + "SET %s\n" + "WHERE `id`=?;": String
++INSERT = "INSERT INTO %s \n" + "SET %s;": String
++INSERT_ROLE = "INSERT INTO Role_User\n" + "(id_user, id_role)\n" + "SELECT Users.id, ? FROM Users\n" + "WHERE `login`=?;": String
++DEL_USER = "DELETE FROM `Users` WHERE `login`=?;": String
++DEL_PACK = "DELETE FROM `Packs` WHERE `id`=?;": String
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>568</x>
+      <y>2048</y>
+      <w>496</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>data_Base.query::AcumQuery
+--
+-acum = new LinkedHashMap&lt;String, BuilderQuery&gt;(): LinkedHashMap&lt;String, BuilderQuery&gt;
+--
++add(BuilderQuery query): void
++get(String id): BuilderQuery
++getAllName(): Set&lt;String&gt;
++contain(String id): boolean
++clear(): void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1640</x>
+      <y>2016</y>
+      <w>144</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>data_Base.tables::Cell
+--
+-value: T
+--
++Cell(T value): ctor
++getValue(): T
++setValue(T value): void
++toString(): String
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1888</x>
+      <y>1992</y>
+      <w>312</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>data_Base.tables::RowTable
+--
++RowTable(ResultSet result): ctor
++RowTable(): ctor
++addInt(Integer num): void
++addString(String str): void
++get(int indexC, String value): RowTable
++get(int indexC, Integer value): RowTable
++getCell(int indexC): Cell
++setCell(int indexC, Object value): void
++toString(): String
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2288</x>
+      <y>1728</y>
+      <w>368</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>data_Base.tables::Tables
+--
+-tables = new HashMap&lt;String, Table&gt;(): HashMap&lt;String, Table&gt;
+--
++add(ResultSet result): void
++add(String name, Table table): void
++add(String name, ResultSet result): void
++get(String name): Table
++getAllName(): Set&lt;String&gt;
++contain(String name): boolean
++pop(String name): Table
++clear(): void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1880</x>
+      <y>1728</y>
+      <w>312</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>data_Base.tables::Table
+--
+-nameCol: ArrayList&lt;String&gt;
+--
++Table(ResultSet result): ctor
+-initName(ResultSetMetaData met): void
+-add(ResultSet result): void
++getRow(String column, String searchValue): RowTabel
++getRow(String column, Integer searchValue): RowTabel
++getColumn(String column): int
++getColumn(Integer column): String
++delRow(String column, String searchValue): RowTabel
++delRow(String column, Integer searchValue): RowTabel
++toString(): String
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>752</y>
+      <w>360</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>data_Base.alert::AlertShow
+--
++showAlert(String type, String title, String message, Stage stage): void
++showAlert(String type, String title, String message)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2152</x>
+      <y>728</y>
+      <w>328</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>gUI::ChangeUserP
+--
+~row: RowTabel
+~type: String
+~role: String
+--
++ChangeUserP(RowTabel row, String type, String role): ctor
++ChangeUserP(String type, String role): ctor
++ChangeUserP(RowTabel row, String type): ctor
++start(Stage primaryStage): void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3144</x>
+      <y>744</y>
+      <w>280</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>gUI::TransformPack
+--
+~row: RowTabel
+~type: String
+--
++TransformPack(RowTabel row, String type): ctor
++start(Stage primaryStage): void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1496</x>
+      <y>704</y>
+      <w>192</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>gUI::MainP
+--
+-role: String
+--
++MainP(String role): ctor
++start(Stage primaryStage): void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2792</x>
+      <y>752</y>
+      <w>192</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>gUI::AuthP
+--
++AuthP(): ctor
++start(Stage primaryStage): void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1264</x>
+      <y>2256</y>
+      <w>288</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>data_Base::Server
+--
+-connection: Connection
+-conSuccessful: boolean
+--
+-Server(): ctor
++getInstance(): Server
++requestUpdate(PreparedStatement statement): void
++cRequest(String sql): PreparedStatement
+-reConnect(int tries): void
++request(PreparedStatement statement): ResultSet
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2800</x>
+      <y>640</y>
+      <w>152</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>Main::Main
+--
++main(String[] args): void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1976</x>
+      <y>1664</y>
+      <w>120</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>ArrayList&lt;RowTable&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2392</x>
+      <y>1656</y>
+      <w>136</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>HashMap&lt;String, Table&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1984</x>
+      <y>2200</y>
+      <w>96</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>ArrayList&lt;Cell&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2024</x>
+      <y>2128</y>
+      <w>24</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2024</x>
+      <y>1680</y>
+      <w>24</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2448</x>
+      <y>1672</y>
+      <w>24</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2024</x>
+      <y>1912</y>
+      <w>40</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=0..n</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2184</x>
+      <y>1824</y>
+      <w>120</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;130.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1776</x>
+      <y>2072</y>
+      <w>128</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=0..n</panel_attributes>
+    <additional_attributes>10.0;10.0;140.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2184</x>
+      <y>1792</y>
+      <w>120</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;130.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2072</x>
+      <y>1912</y>
+      <w>24</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1776</x>
+      <y>2048</y>
+      <w>128</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;140.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1056</x>
+      <y>2120</y>
+      <w>208</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=1</panel_attributes>
+    <additional_attributes>240.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1056</x>
+      <y>2088</y>
+      <w>208</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>240.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1568</x>
+      <y>2048</y>
+      <w>88</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1400</x>
+      <y>2200</y>
+      <w>24</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2208</x>
+      <y>856</y>
+      <w>32</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2432</x>
+      <y>856</y>
+      <w>32</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2888</x>
+      <y>816</y>
+      <w>32</w>
+      <h>344</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;410.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3280</x>
+      <y>832</y>
+      <w>32</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1640</x>
+      <y>784</y>
+      <w>32</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1304</x>
+      <y>768</y>
+      <w>208</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=
+m2=1</panel_attributes>
+    <additional_attributes>240.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1200</x>
+      <y>1072</y>
+      <w>120</w>
+      <h>376</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>130.0;450.0;130.0;50.0;10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1512</x>
+      <y>1344</y>
+      <w>192</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>10.0;110.0;10.0;70.0;220.0;70.0;220.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1600</x>
+      <y>1264</y>
+      <w>848</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>10.0;230.0;1040.0;230.0;1040.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1600</x>
+      <y>1264</y>
+      <w>1312</w>
+      <h>216</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>10.0;250.0;1620.0;250.0;1620.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2880</x>
+      <y>680</y>
+      <w>24</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1384</x>
+      <y>2392</y>
+      <w>24</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1800</x>
+      <y>1248</y>
+      <w>384</w>
+      <h>760</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=
+m2=1</panel_attributes>
+    <additional_attributes>460.0;10.0;10.0;480.0;10.0;890.0;110.0;930.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2192</x>
+      <y>1264</y>
+      <w>976</w>
+      <h>808</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=
+m2=1</panel_attributes>
+    <additional_attributes>1200.0;10.0;1200.0;980.0;10.0;980.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1032</x>
+      <y>1072</y>
+      <w>648</w>
+      <h>960</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>790.0;1180.0;790.0;810.0;10.0;810.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1688</x>
+      <y>1344</y>
+      <w>24</w>
+      <h>688</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;840.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1704</x>
+      <y>1248</y>
+      <w>344</w>
+      <h>784</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;960.0;10.0;190.0;320.0;190.0;410.0;100.0;410.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1720</x>
+      <y>1264</y>
+      <w>680</w>
+      <h>744</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>230.0;910.0;230.0;840.0;140.0;840.0;140.0;610.0;10.0;610.0;10.0;180.0;830.0;180.0;830.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2192</x>
+      <y>1264</y>
+      <w>1208</w>
+      <h>856</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>10.0;1050.0;1490.0;1050.0;1490.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1720</x>
+      <y>1264</y>
+      <w>1752</w>
+      <h>1008</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>10.0;1080.0;10.0;1240.0;2170.0;1240.0;2170.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1064</x>
+      <y>1072</y>
+      <w>200</w>
+      <h>856</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>230.0;1050.0;230.0;790.0;10.0;790.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1328</x>
+      <y>1344</y>
+      <w>440</w>
+      <h>584</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;710.0;10.0;440.0;530.0;440.0;530.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1344</x>
+      <y>1248</y>
+      <w>800</w>
+      <h>680</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;830.0;10.0;430.0;560.0;430.0;980.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1360</x>
+      <y>1264</y>
+      <w>1112</w>
+      <h>664</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;810.0;10.0;430.0;1370.0;430.0;1370.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1376</x>
+      <y>1264</y>
+      <w>1504</w>
+      <h>664</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;810.0;10.0;450.0;1860.0;450.0;1860.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1392</x>
+      <y>1264</y>
+      <w>1864</w>
+      <h>664</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;810.0;10.0;470.0;2310.0;470.0;2310.0;10.0</additional_attributes>
+  </element>
+</diagram>

@@ -61,9 +61,9 @@ public class RegUserController implements Initializable {
             Table table = Tables.get("Roles");
             for (RowTabel row: table){
 
-                if (!((String) row.getCell(1).getValue()).contains("Директ")){
+                if (!row.getCell(1).toString().contains("Директ")){
                     if (role.equals("админ")){
-                        if (!((String) row.getCell(1).getValue()).contains("директ") && !((String) row.getCell(1).getValue()).contains("Админ")){
+                        if (!row.getCell(1).toString().contains("директ") && !row.getCell(1).toString().contains("Админ")){
                             list.add(row.toString());
                         }
                     } else {

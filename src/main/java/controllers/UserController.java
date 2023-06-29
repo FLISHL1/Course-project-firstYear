@@ -58,10 +58,8 @@ public class UserController implements Initializable {
     @FXML
     private VBox listPack;
     private String role;
-    private Server server;
     private boolean fl;
     public UserController(String role) {
-        server = Server.getInstance();
         this.role = role;
 
     }
@@ -150,7 +148,7 @@ public class UserController implements Initializable {
             query = AcumQuery.get("updateUser");
         query.setWhere(row.getCell(table.getColumn("login")).toString());
 
-        if (!insOldPassword.getText().equals("") && PasswordHashing.checkPass(insOldPassword.getText(), (String) row.getCell(table.getColumn("password")).getValue())) {
+        if (!insOldPassword.getText().equals("") && PasswordHashing.checkPass(insOldPassword.getText(), row.getCell(table.getColumn("password")).toString())) {
             row.getCell(table.getColumn("password")).setValue(PasswordHashing.HashPassword(insNewPassword.getText()));
             query.addArgs("password", row.getCell(table.getColumn("password")));
         } else {
@@ -226,14 +224,14 @@ public class UserController implements Initializable {
     private void resetChange(){
         Table table = Tables.get("User");
         RowTabel row = table.get(0);
-        insFirstName.setText((String) row.get(table.getColumn("first_name")).getValue());
-        insSecondName.setText((String) row.get(table.getColumn("second_name")).getValue());
-        insLastName.setText((String) row.get(table.getColumn("last_name")).getValue());
-        insNumberPhone.setText((String) row.get(table.getColumn("number_phone")).getValue());
-        insAddress.setText((String) row.get(table.getColumn("address")).getValue());
-        insLogin.setText((String) row.get(table.getColumn("login")).getValue());
+        insFirstName.setText(row.get(table.getColumn("first_name")).toString());
+        insSecondName.setText(row.get(table.getColumn("second_name")).toString());
+        insLastName.setText(row.get(table.getColumn("last_name")).toString());
+        insNumberPhone.setText(row.get(table.getColumn("number_phone")).toString());
+        insAddress.setText(row.get(table.getColumn("address")).toString());
+        insLogin.setText(row.get(table.getColumn("login")).toString());
         nameUser.setText(insLastName.getText() + " " + insFirstName.getText() + " " + insSecondName.getText());
-        roleUser.setText((String) row.get(table.getColumn("name")).getValue());
+        roleUser.setText(row.get(table.getColumn("name")).toString());
     }
     @FXML
     private void disRed(KeyEvent event){

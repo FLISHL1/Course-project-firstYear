@@ -62,11 +62,9 @@ public class DirectorController implements Initializable {
     private TextField searchPack;
     @FXML
     private VBox listPack;
-    private Server server;
     private boolean fl;
-    String role;
+    private String role;
     public DirectorController(String role) {
-        this.server = Server.getInstance();
         this.role = role;
     }
 
@@ -97,13 +95,13 @@ public class DirectorController implements Initializable {
         boxColumn.setPadding(new Insets(10));
         listUsers.getChildren().add(boxColumn);
         for (RowTabel row: table){
-            if (((String) (row.getCell(table.getColumn("login")).getValue())).equals((String) Tables.get("User").get(0).get(Tables.get("User").getColumn("login")).getValue())){
+            if (row.getCell(table.getColumn("login")).toString().equals(Tables.get("User").get(0).get(Tables.get("User").getColumn("login")).toString())){
                 continue;
             }
             HBox box = new HBox();
-            Label login = new Label((String) (row.getCell(table.getColumn("login")).getValue()));
+            Label login = new Label(row.getCell(table.getColumn("login")).toString());
             Label fio = new Label((row.getCell(table.getColumn("last_name")).getValue()) + " " + (row.getCell(table.getColumn("first_name")).getValue()) + " " + (row.getCell(table.getColumn("second_name")).getValue()));
-            Label role = new Label((String) (row.getCell(table.getColumn("name")).getValue()));
+            Label role = new Label(row.getCell(table.getColumn("name")).toString());
             box.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2){
                     searchLogin.setText(login.getText());
@@ -262,7 +260,7 @@ public class DirectorController implements Initializable {
             query = AcumQuery.get("updateUser");
         query.setWhere(row.getCell(table.getColumn("login")).toString());
         if (!insOldPassword.getText().equals(""))
-            if (PasswordHashing.checkPass(insOldPassword.getText(), (String) row.getCell(table.getColumn("password")).getValue())) {
+            if (PasswordHashing.checkPass(insOldPassword.getText(), row.getCell(table.getColumn("password")).toString())) {
                 row.getCell(table.getColumn("password")).setValue(PasswordHashing.HashPassword(insNewPassword.getText()));
                 query.addArgs("password", row.getCell(table.getColumn("password")));
             } else {
@@ -342,14 +340,14 @@ public class DirectorController implements Initializable {
     private void resetChange(){
         Table table = Tables.get("User");
         RowTabel row = table.get(0);
-        insFirstName.setText((String) row.get(table.getColumn("first_name")).getValue());
-        insSecondName.setText((String) row.get(table.getColumn("second_name")).getValue());
-        insLastName.setText((String) row.get(table.getColumn("last_name")).getValue());
-        insNumberPhone.setText((String) row.get(table.getColumn("number_phone")).getValue());
-        insAddress.setText((String) row.get(table.getColumn("address")).getValue());
-        insLogin.setText((String) row.get(table.getColumn("login")).getValue());
+        insFirstName.setText(row.get(table.getColumn("first_name")).toString());
+        insSecondName.setText(row.get(table.getColumn("second_name")).toString());
+        insLastName.setText(row.get(table.getColumn("last_name")).toString());
+        insNumberPhone.setText(row.get(table.getColumn("number_phone")).toString());
+        insAddress.setText(row.get(table.getColumn("address")).toString());
+        insLogin.setText(row.get(table.getColumn("login")).toString());
         nameUser.setText(insLastName.getText() + " " + insFirstName.getText() + " " + insSecondName.getText());
-        roleUser.setText((String) row.get(table.getColumn("name")).getValue());
+        roleUser.setText(row.get(table.getColumn("name")).toString());
     }
 
     @FXML
