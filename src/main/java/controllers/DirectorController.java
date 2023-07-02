@@ -51,7 +51,6 @@ public class DirectorController implements Initializable {
     private Label nameUser;
     @FXML
     private Label roleUser;
-
 //    TabUsers
     @FXML
     private VBox listUsers;
@@ -71,6 +70,7 @@ public class DirectorController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         resetChange();
+
         BuilderQuery query = new BuilderQuery("getUsers", Query.GET_USERS);
         Tables.add("Users", query.toQuery());
 
@@ -188,7 +188,8 @@ public class DirectorController implements Initializable {
         fillPacks();
         BuilderQuery query = new BuilderQuery("delPack"+searchPack.getText(), Query.DEL_PACK);
         query.setWhere(searchPack.getText());
-        AcumQuery.add(query);
+        query.toUpdate();
+//        AcumQuery.add(query);
     }
     @FXML
     private void createPack(){
@@ -232,7 +233,8 @@ public class DirectorController implements Initializable {
         BuilderQuery query = new BuilderQuery("delUser"+searchLogin.getText(), Query.DEL_USER);
         query.setWhere(String.format(searchLogin.getText()));
 
-        AcumQuery.add(query);
+        query.toUpdate();
+//        AcumQuery.add(query);
     }
 
     private void userSaveChange(AnchorPane source){
@@ -245,12 +247,10 @@ public class DirectorController implements Initializable {
             }
         }
         checkValid(list);
-
         if (fl){
             AlertShow.showAlert("warning", "Warning", "Invalid input", (Stage) insFirstName.getScene().getWindow());
             return;
         }
-
         Table table = Tables.get("User");
         RowTabel row = table.get(0);
         BuilderQuery query;
@@ -267,36 +267,36 @@ public class DirectorController implements Initializable {
                 AlertShow.showAlert("warning", "Password not corrected", "You entered the password incorrectly");
                 return;
             }
-        if (checkChange(row.getCell(table.getColumn("first_name")), insFirstName.getText())) {
-            row.getCell(table.getColumn("first_name")).setValue(insFirstName.getText());
-            query.addArgs("first_name", row.getCell(table.getColumn("first_name")));
-        }
-        if (checkChange(row.getCell(table.getColumn("last_name")), insLastName.getText())) {
-            row.getCell(table.getColumn("last_name")).setValue(insLastName.getText());
-            query.addArgs("last_name", row.getCell(table.getColumn("last_name")));
-        }
-        if (checkChange(row.getCell(table.getColumn("second_name")), insSecondName.getText())) {
-            row.getCell(table.getColumn("second_name")).setValue(insSecondName.getText());
-            query.addArgs("second_name", row.getCell(table.getColumn("second_name")));
-        }
-        if (checkChange(row.getCell(table.getColumn("number_phone")), insNumberPhone.getText())) {
-            row.getCell(table.getColumn("number_phone")).setValue(insNumberPhone.getText());
-            query.addArgs("number_phone", row.getCell(table.getColumn("number_phone")));
-        }
 
-        if (checkChange(row.getCell(table.getColumn("address")), insAddress.getText())) {
-            row.getCell(table.getColumn("address")).setValue(insAddress.getText());
-            query.addArgs("address", row.getCell(table.getColumn("address")));
+        checkUser(row, "first_name", query, insFirstName);
+        checkUser(row, "last_name", query, insLastName);
+        checkUser(row, "second_name", query, insSecondName);
+        checkUser(row, "number_phone", query, insNumberPhone);
+        checkUser(row, "address", query, insAddress);
+        if (!row.get(Tables.get("Users").getColumn("login")).toString().equals(insLogin.getText())) {
+            if (Tables.get("Users").getRow("login", insLogin.getText()) == null) {
+                row.getCell(table.getColumn("login")).setValue(insLogin.getText());
+                query.addArgs("login", row.getCell(table.getColumn("login")));
+            } else {
+                AlertShow.showAlert("warning", "Login is available", "Login is available");
+                return;
+            }
         }
-
         if (query.getLengthArg() != 0)
-            AcumQuery.add(query);
+//            AcumQuery.add(query);
+            query.toUpdate();
         resetChange();
         fillUsers();
         AlertShow.showAlert("info", "Changes save", "Insertable changes, is saved", (Stage) searchLogin.getScene().getWindow());
 
     }
 
+    private void checkUser(RowTabel editRow, String nameColumn, BuilderQuery query, TextField text){
+        if (checkChange(editRow.getCell(Tables.get("User").getColumn(nameColumn)), text.getText())) {
+            editRow.getCell(Tables.get("User").getColumn(nameColumn)).setValue(text.getText());
+            query.addArgs(nameColumn, editRow.getCell(Tables.get("User").getColumn(nameColumn)));
+        }
+    }
 
     private boolean checkChange(Cell oldValue, String newValue){
         return !oldValue.getValue().toString().equals(newValue);

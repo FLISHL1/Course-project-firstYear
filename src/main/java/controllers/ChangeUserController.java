@@ -76,27 +76,11 @@ public class ChangeUserController implements Initializable {
             query = AcumQuery.get("updateUser"+row.get(table.getColumn("login")));
         query.setWhere(row.getCell(table.getColumn("login")).toString());
 
-        if (checkChange(row.getCell(table.getColumn("first_name")), insFirstName.getText())) {
-            row.getCell(table.getColumn("first_name")).setValue(insFirstName.getText());
-            query.addArgs("first_name", row.getCell(table.getColumn("first_name")));
-        }
-        if (checkChange(row.getCell(table.getColumn("last_name")), insLastName.getText())) {
-            row.getCell(table.getColumn("last_name")).setValue(insLastName.getText());
-            query.addArgs("last_name", row.getCell(table.getColumn("last_name")));
-        }
-        if (checkChange(row.getCell(table.getColumn("second_name")), insSecondName.getText())) {
-            row.getCell(table.getColumn("second_name")).setValue(insSecondName.getText());
-            query.addArgs("second_name", row.getCell(table.getColumn("second_name")));
-        }
-        if (checkChange(row.getCell(table.getColumn("number_phone")), insNumberPhone.getText())) {
-            row.getCell(table.getColumn("number_phone")).setValue(insNumberPhone.getText());
-            query.addArgs("number_phone", row.getCell(table.getColumn("number_phone")));
-        }
-
-        if (checkChange(row.getCell(table.getColumn("address")), insAddress.getText())) {
-            row.getCell(table.getColumn("address")).setValue(insAddress.getText());
-            query.addArgs("address", row.getCell(table.getColumn("address")));
-        }
+        checkUser(row, "first_name", query, insFirstName);
+        checkUser(row, "last_name", query, insLastName);
+        checkUser(row, "second_name", query, insSecondName);
+        checkUser(row, "number_phone", query, insNumberPhone);
+        checkUser(row, "address", query, insAddress);
         if (checkChange(row.getCell(table.getColumn("name")), ((String) choiceRole.getValue()).split(" ")[1])){
             row.getCell(table.getColumn("name")).setValue(((String) choiceRole.getValue()).split(" ")[1]);
 
@@ -118,10 +102,19 @@ public class ChangeUserController implements Initializable {
             row.getCell(table.getColumn("id_dc")).setValue(Integer.parseInt(((String) choiceDel.getValue()).split(" ")[0]));
             query.addArgs("id_dc", row.getCell(table.getColumn("id_dc")));
         }
-
-        if (query.getLengthArg() != 0)
-            AcumQuery.add(query);
+//
+//        if (query.getLengthArg() != 0)
+//            AcumQuery.add(query);
+        if (query.getLengthArg() != 0){
+            query.toUpdate();
+        }
         ((Stage) insLogin.getScene().getWindow()).close();
+    }
+    private void checkUser(RowTabel editRow, String nameColumn, BuilderQuery query, TextField text){
+        if (checkChange(editRow.getCell(Tables.get("User").getColumn(nameColumn)), text.getText())) {
+            editRow.getCell(Tables.get("User").getColumn(nameColumn)).setValue(text.getText());
+            query.addArgs(nameColumn, editRow.getCell(Tables.get("User").getColumn(nameColumn)));
+        }
     }
     private boolean checkChange(Cell oldValue, String newValue){
         return !oldValue.toString().equals(newValue);

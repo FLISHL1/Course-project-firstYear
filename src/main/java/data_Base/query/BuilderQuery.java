@@ -96,7 +96,6 @@ public class BuilderQuery {
             throw new RuntimeException(e);
         }
     }
-
 //    Заполняет поле where если имеется
     private void fillWhere(PreparedStatement statement){
         try {

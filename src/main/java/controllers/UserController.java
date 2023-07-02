@@ -155,33 +155,24 @@ public class UserController implements Initializable {
             AlertShow.showAlert("warning", "Password not corrected", "You entered the password incorrectly");
             return;
         }
-        if (checkChange(row.getCell(table.getColumn("first_name")), insFirstName.getText())) {
-            row.getCell(table.getColumn("first_name")).setValue(insFirstName.getText());
-            query.addArgs("first_name", row.getCell(table.getColumn("first_name")));
-        }
-        if (checkChange(row.getCell(table.getColumn("last_name")), insLastName.getText())) {
-            row.getCell(table.getColumn("last_name")).setValue(insLastName.getText());
-            query.addArgs("last_name", row.getCell(table.getColumn("last_name")));
-        }
-        if (checkChange(row.getCell(table.getColumn("second_name")), insSecondName.getText())) {
-            row.getCell(table.getColumn("second_name")).setValue(insSecondName.getText());
-            query.addArgs("second_name", row.getCell(table.getColumn("second_name")));
-        }
-        if (checkChange(row.getCell(table.getColumn("number_phone")), insNumberPhone.getText())) {
-            row.getCell(table.getColumn("number_phone")).setValue(insNumberPhone.getText());
-            query.addArgs("number_phone", row.getCell(table.getColumn("number_phone")));
-        }
-
-        if (checkChange(row.getCell(table.getColumn("address")), insAddress.getText())) {
-            row.getCell(table.getColumn("address")).setValue(insAddress.getText());
-            query.addArgs("address", row.getCell(table.getColumn("address")));
-        }
+        checkUser(row, "first_name", query, insFirstName);
+        checkUser(row, "last_name", query, insLastName);
+        checkUser(row, "second_name", query, insSecondName);
+        checkUser(row, "number_phone", query, insNumberPhone);
+        checkUser(row, "address", query, insAddress);
 
         if (query.getLengthArg() != 0)
-            AcumQuery.add(query);
+//            AcumQuery.add(query);
+            query.toUpdate();
         resetChange();
         AlertShow.showAlert("info", "Changes save", "Insertable changes, is saved", (Stage) insFirstName.getScene().getWindow());
 
+    }
+    private void checkUser(RowTabel editRow, String nameColumn, BuilderQuery query, TextField text){
+        if (checkChange(editRow.getCell(Tables.get("User").getColumn(nameColumn)), text.getText())) {
+            editRow.getCell(Tables.get("User").getColumn(nameColumn)).setValue(text.getText());
+            query.addArgs(nameColumn, editRow.getCell(Tables.get("User").getColumn(nameColumn)));
+        }
     }
     private boolean checkChange(Cell oldValue, String newValue){
         return !oldValue.getValue().toString().equals(newValue);
@@ -244,7 +235,7 @@ public class UserController implements Initializable {
         ((Stage) insFirstName.getScene().getWindow()).close();
         Tables.clear();
         for(String id: AcumQuery.getAllName()){
-            AcumQuery.get(id).toQuery();
+            AcumQuery.get(id).toUpdate();
         }
         AcumQuery.clear();
     }

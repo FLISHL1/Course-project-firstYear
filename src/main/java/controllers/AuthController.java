@@ -51,7 +51,6 @@ public class AuthController {
                 }
 
                 RowTabel row = table.getRow("login", insLogin.getText());
-
 //                          Авторизация
                 if (row == null){
                     AlertShow.showAlert("info", "User not found","Currently user not found\nPlease check login or password", (Stage) butLogin.getScene().getWindow());
@@ -69,7 +68,6 @@ public class AuthController {
                     stage.close();
                 } else {
                     AlertShow.showAlert("info", "User not found","Currently user not found\nPlease check login or password", (Stage) butLogin.getScene().getWindow());
-
                 }
 
 

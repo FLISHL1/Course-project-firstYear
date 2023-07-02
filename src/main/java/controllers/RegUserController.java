@@ -118,12 +118,12 @@ public class RegUserController implements Initializable {
         if (!regUser((AnchorPane) o)){
             return;
         }
-        if (role.equals("User")) {
-            for (String id : AcumQuery.getAllName()) {
-                AcumQuery.get(id).toQuery();
-            }
-            AcumQuery.clear();
-        }
+//        if (role.equals("User")) {
+//            for (String id : AcumQuery.getAllName()) {
+//                AcumQuery.get(id).toUpdate();
+//            }
+//            AcumQuery.clear();
+//        }
         ((Stage) o.getScene().getWindow()).close();
     }
     private void insertDBQ(TextField text, RowTabel newRow, BuilderQuery query){
@@ -243,8 +243,10 @@ public class RegUserController implements Initializable {
             query1.addArgs("", new Cell<Integer>(5));
         }
         query1.setWhere(String.format(insLogin.getText()));
-        AcumQuery.add(query);
-        AcumQuery.add(query1);
+        query.toUpdate();
+        query1.toUpdate();
+//        AcumQuery.add(query);
+//        AcumQuery.add(query1);
         AlertShow.showAlert("info", "Successful", "User " + insLogin.getText() + " created", (Stage) insFirstName.getScene().getWindow());
         return true;
     }

@@ -47,14 +47,13 @@ public class TransformPackController  implements Initializable {
 
     @FXML
     private void resetChange(){
-        String tableName = "Users";
         Table table = Tables.get("Packs");
         choiceTypeDeli.setValue(row.get(table.getColumn("type_delivery")).toString());
         insWeight.setText(row.get(table.getColumn("weight")).toString());
 
         choiceFrom.setValue(buildUserName("user_from"));
         choiceTo.setValue(buildUserName("user_to"));
-        choiceDel.setValue(Tables.get("Delivery_Center").getRow("id", (Integer) row.get(table.getColumn("id_dc_from")).getValue()).toString());
+        choiceDel.setValue(Tables.get("Delivery_Center").getRow("id", (Integer) row.get(table.getColumn("id_dc_to")).getValue()).toString());
         choiceCourier.setValue(buildUserName("id_courier"));
 
     }
@@ -210,7 +209,8 @@ public class TransformPackController  implements Initializable {
 
         insertDBQ(choiceCourier, row, "id_courier", query);
 
-        AcumQuery.add(query);
+        query.toUpdate();
+//        AcumQuery.add(query);
         if (type.equals("create"))
             Tables.get("Packs").add(row);
 

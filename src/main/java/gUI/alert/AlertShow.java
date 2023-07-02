@@ -26,11 +26,9 @@ public class AlertShow {
     }
     public static void showAlert(String type, String title, String message){
         new JFXPanel();
-
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-
                 Alert.AlertType typeAlert = switch (type){
                     case "info" -> Alert.AlertType.INFORMATION;
                     case "error" -> Alert.AlertType.ERROR;
